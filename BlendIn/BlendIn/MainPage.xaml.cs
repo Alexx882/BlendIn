@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlendIn.Tests;
 using Xamarin.Forms;
 
 namespace BlendIn
@@ -19,12 +20,16 @@ namespace BlendIn
             InitializeComponent();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void ButtonStartGame_Clicked(object sender, EventArgs e)
         {
             GameView v = new GameView();
-            ((App)App.Current).NavigationPage.PushAsync(v);
+            ((App) App.Current).NavigationPage.PushAsync(v);
+        }
 
-            
+        private void ButtonFlashlight_Clicked(object sender, EventArgs e)
+        {
+            var v = new FlashlightTestView();
+            ((App) App.Current).NavigationPage.PushAsync(v);
         }
     }
 }

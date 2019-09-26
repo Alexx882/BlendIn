@@ -11,7 +11,8 @@
         <Label Text="Join Blend In!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-        <Button Text="Start Game" Clicked="Button_Clicked"></Button>
+        <Button Text="Start Game" Clicked="ButtonStartGame_Clicked"></Button>
+        <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
     </StackLayout>
 
 </ContentPage>
