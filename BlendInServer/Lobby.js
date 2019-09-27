@@ -90,6 +90,13 @@ class Lobby {
     get playing() {
         return this._playing;
     }
+
+    getHunter() {
+        for (let i = 0; i < this.users.length; i++) {
+            if(this.users[i].isHunter) return this.users[i];
+        }
+        return null;
+    }
 }
 
 module.exports = Lobby;

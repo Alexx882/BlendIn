@@ -2,17 +2,17 @@
 const WebSocket = require('ws');
 const Lobby = require('./Lobby.js')
 const User = require('./User.js')
-//const StartMsg = require('./StartMsg.js')
 const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
+const ExposeMsg = require('./ExposeMsg.js')
 
 const wss = new WebSocket.Server({ port: 8080 });
 
 // TODO maybe redis?
 var lobbies = [];
-var tickrate = 2;
+var tickrate = .5;
 
 function getLobbyByName(lobbyname) {
     lobbyname = lobbyname.toUpperCase();
@@ -63,7 +63,6 @@ function login(client, message) {
         lobby.addUser(new User(client, message.username))
         lobby.sendToMembersExcept({ event: "join", user: message.username }, [ message.username ])
     } catch(exists) {
-        
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
         ))
@@ -88,7 +87,7 @@ function location(client, message) {
         ))
         return;
     }
-    user = getUserInLobbyByName(lobby, message.username)
+    var user = getUserInLobbyByName(lobby, message.username)
     if (user == null) {
         client.send(JSON.stringify(
             new ErrorMsg(event, "User with this name does not exist in your lobby")
@@ -131,7 +130,7 @@ function stun(client, message) {
         ))
         return;
     }
-    user = getUserInLobbyByName(lobby, message.username)
+    var user = getUserInLobbyByName(lobby, message.username)
     if (user == null) {
         client.send(JSON.stringify(
             new ErrorMsg(event, "User with this name does not exist in your lobby")
@@ -159,6 +158,126 @@ function stun(client, message) {
     });
 }
 
+function catchPlayer(client, message) {
+    var event = "catch"
+    var lobby = getLobbyByName(message.lobby)
+    if (lobby == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby with this name does not exist")
+        ))
+        return;
+    }
+    if (lobby.playing == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is not playing yet! fukcing hakcre!1!uno")
+        ))
+        return;
+    }
+    var user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (user.isHunter == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is not hunter and cannot use Stun")
+        ))
+        return;
+    }
+    
+    coughtPlayer = getUserInLobbyByName(lobby, message.cought)
+    if (user.isCought == true) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is already cought")
+        ))
+        return;
+    }
+    coughtPlayer.isCought = true;
+}
+
+function expose(client, message) {
+    var event = "expose"
+    var lobby = getLobbyByName(message.lobby)
+    if (lobby == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby with this name does not exist")
+        ))
+        return;
+    }
+    if (lobby.playing == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is not playing yet! U l33t haX0r?")
+        ))
+        return;
+    }
+    var user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (user.isHunter == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is not hunter and cannot use Expose")
+        ))
+        return;
+    }
+    var exposedPrey = [];
+    lobby.users.forEach(prey => {
+        if(prey.isHunter == false) {
+            var dist = Calculations.distance(user.location, prey.location);
+            exposedPrey.push({ user: prey, duration: Math.floor(dist) })
+        }
+    });
+
+    //expose all the prey for (distance in m) * 1 seconds
+    exposedPrey.forEach(exposed => {
+        exposed.user.socket.send(new ExposeMsg(exposed.duration))
+    });
+}
+
+function cloak(client, message) {
+    var event = "expose"
+    var lobby = getLobbyByName(message.lobby)
+    if (lobby == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby with this name does not exist")
+        ))
+        return;
+    }
+    if (lobby.playing == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is not playing yet! U l33t haX0r?")
+        ))
+        return;
+    }
+    var user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (user.isHunter == true) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is hunter and cannot use Cloak")
+        ))
+        return;
+    }
+    
+    user.isCloaked = true;
+    delayUncloak(user)
+
+    // Server ticking
+    async function delayUncloak (usr) {
+        await timeout(5000)
+        usr.isCloaked = false;
+    }
+}
+
 wss.on('connection', function connection(ws) {
     // This event fires when any connected socket sends a message
     ws.on('message', function incoming(jsonmessage) {
@@ -169,7 +288,7 @@ wss.on('connection', function connection(ws) {
             } catch (error) {
                 ws.send(JSON.stringify({ error: error }));
             }
-            console.log(lobbies)
+            // console.log(lobbies)
             switch (message.event) {
                 case "login":
                     login(ws, message)
@@ -182,6 +301,12 @@ wss.on('connection', function connection(ws) {
                     break;
                 case "stun":
                     stun(ws, message)
+                    break;
+                case "expose":
+                    expose(ws, message)
+                    break;
+                case "catch":
+                    catchPlayer(ws, message)
                     break;
                 default:
                     ws.send(JSON.stringify({ error: "Undefind event!" }));
@@ -202,7 +327,7 @@ wss.on('connection', function connection(ws) {
                         user: user.name
                     })
                     user.connected = false;
-                    console.log("" + user.name + " disconnected")
+                    console.log("[INFO] " + user.name + " disconnected from " + lobby.name)
                     return;
                 }
             });
@@ -212,6 +337,7 @@ wss.on('connection', function connection(ws) {
             });
             // remove empty lobbies
             lobbies = lobbies.filter(function(lobby, index, arr){
+                if(lobby.users.length == 0) console.log("[INFO] Dropping empty lobby " +  lobby.name)
                 return lobby.users.length > 0
             });
         });
@@ -227,9 +353,13 @@ wss.on('connection', function connection(ws) {
 const interval = setInterval(function tick() {
     lobbies.forEach(lobby => {
         if(lobby.playing) {
-            // console.log("[%s] Lobby tick.", lobby.name)
+            console.log("[%s] Lobby tick.", lobby.name)
+            var visibleUsers = lobby.users.filter(function(user, index, arr){
+                return user.isCloaked == false
+            });
+
             lobby.users.forEach(user => {
-                user.socket.send(JSON.stringify(new Tick(lobby.users)))
+                user.socket.send(JSON.stringify(new Tick(visibleUsers)))
             });
         }
     });

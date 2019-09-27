@@ -16,22 +16,22 @@ namespace BlendIn.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewNewGame : ContentPage
     {
-        private string _lobby_name;
         public ViewNewGame()
         {
             // TODO Sound and Light optional settings
             InitializeComponent();
         }
 
-        private async void ConnectAsHost(string name)
+        private async void ConnectAsHost(string username)
         {
             await WebSocketClient.Instance.ConnectToServerAsync();
             WebSocketClient.Instance.RegisterForMessage<LoginResponse>(HandleLoginResponse);
             WebSocketClient.Instance.RegisterForMessage<PlayerJoinedResponse>(HandlePlayerJoined);
             WebSocketClient.Instance.RegisterForMessage<TimerResponse>(HandleTimerResponse);
 
-            await WebSocketClient.Instance.SendMessageAsync(new LoginMessage(){ @event = "login", username = name});
-            WebSocketClient.Instance.UserName = name;
+            await WebSocketClient.Instance.SendMessageAsync(new LoginMessage(){ @event = "login", username = username});
+
+            GameLogic.Instance.Self = new Player() { PlayerName = username };
         }
 
         private void HandleTimerResponse(object obj)
@@ -55,7 +55,7 @@ namespace BlendIn.Views
         private void HandleLoginResponse(object message)
         {
             var response = message as LoginResponse;
-            _lobby_name = response.lobby_name;
+            GameLogic.Instance.LobbyName = response.lobby_name;
             Device.BeginInvokeOnMainThread(() => {
                 LabelLobby.Text = response.lobby_name;
             });
@@ -69,7 +69,7 @@ namespace BlendIn.Views
 
         private void ButtonStart_OnClicked(object sender, EventArgs e)
         {
-            WebSocketClient.Instance.SendMessageAsync(new StartGameMessage(){@event = "start", lobby = _lobby_name});
+            WebSocketClient.Instance.SendMessageAsync(new StartGameMessage(){@event = "start", lobby = GameLogic.Instance.LobbyName});
         }
     }
 }
