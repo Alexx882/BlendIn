@@ -5,12 +5,15 @@ class User {
         this.isHunter = false;
         this.location = null;
         this.connected = true;
+        this.isCought = false;
+        this.isCloaked = false;
     }
 
     toJSON(){
         return {
             name: this.name,
-            location: this.location
+            lat: this.location.lat,
+            long: this.location.long
         };
     }
 
