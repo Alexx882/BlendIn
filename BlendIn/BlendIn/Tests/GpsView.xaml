@@ -11,7 +11,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Label x:Name="LocationLabel" Text=""></Label>
-            <Button Text="Get location" Clicked="ButtonGetLocation_OnClicked"></Button>
+            <Button Text="Get Location" Clicked="ButtonGetLocation_OnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
