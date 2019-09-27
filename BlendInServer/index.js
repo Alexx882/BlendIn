@@ -2,9 +2,10 @@
 const WebSocket = require('ws');
 const Lobby = require('./Lobby.js')
 const User = require('./User.js')
-const StartMsg = require('./StartMsg.js')
+//const StartMsg = require('./StartMsg.js')
 const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
+const Tick = require('./Tick.js')
 const wss = new WebSocket.Server({ port: 8080 });
 
 // TODO maybe redis?
@@ -12,6 +13,7 @@ var lobbies = [];
 var tickrate = 2;
 
 function getLobbyByName(lobbyname) {
+    lobbyname = lobbyname.toUpperCase();
     let lobby = null;
     lobbies.forEach(l => {
         if (l.name == lobbyname) {
@@ -103,6 +105,12 @@ function start(client, message) {
         ))
         return;
     }
+    if (lobby.playing == true) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is already running")
+        ))
+        return;
+    }
     lobby.start(15);
 }
 
@@ -171,9 +179,9 @@ wss.on('connection', function connection(ws) {
 const interval = setInterval(function tick() {
     lobbies.forEach(lobby => {
         if(lobby.playing) {
-            console.log("[%s] Lobby tick.", lobby.name)
+            // console.log("[%s] Lobby tick.", lobby.name)
             lobby.users.forEach(user => {
-                user.send(new Tick(lobby.users))
+                user.socket.send(JSON.stringify(new Tick(lobby.users)))
             });
         }
     });

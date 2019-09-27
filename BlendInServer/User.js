@@ -13,5 +13,9 @@ class User {
             location: this.location
         };
     }
+
+    toString() {
+        return this.name
+    }
 }
 module.exports = User;
