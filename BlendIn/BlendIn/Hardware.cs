@@ -8,8 +8,48 @@ using ZXing.Net.Mobile.Forms;
 
 namespace BlendIn
 {
-    class Hardware
+    public class Hardware
     {
+        public static SensorSpeed speed = SensorSpeed.UI; //Describes how often the Sensor is checked
+        public static Func<double,double> adjustCompass;
+
+        public static void registerCompass(Func<double,double> AdjustCompassFunction)
+        {
+            // Register for reading changes, be sure to unsubscribe when finished
+            Compass.ReadingChanged += Compass_ReadingChanged;
+            adjustCompass = AdjustCompassFunction;
+        }
+
+        internal static void registerCompass(Action<double> p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void Compass_ReadingChanged(object sender, CompassChangedEventArgs e)
+        {
+            var data = e.Reading;
+            adjustCompass(data.HeadingMagneticNorth);
+        }
+
+        public static void ToggleCompass()
+        {
+            try
+            {
+                if (Compass.IsMonitoring)
+                    Compass.Stop();
+                else
+                    Compass.Start(speed);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Feature not supported on device
+            }
+            catch (Exception ex)
+            {
+                // Some other exception has occurred
+            }
+        }
+
         public static async Task<bool> TryTurnOnFlashlight()
         {
             try

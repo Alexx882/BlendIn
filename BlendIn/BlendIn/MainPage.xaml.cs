@@ -18,6 +18,14 @@ namespace BlendIn
         public MainPage()
         {
             InitializeComponent();
+            Hardware.registerCompass(AdjustCompassFunction);
+            Hardware.ToggleCompass();
+        }
+
+        public double AdjustCompassFunction(double d)
+        {
+            Debuglabel.Text = $"Reading: {d} degrees";
+            return d;
         }
 
         private void ButtonStartGame_Clicked(object sender, EventArgs e)

@@ -11,6 +11,7 @@
         <Label Text="Join Blend In!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
+        <Label x:Name ="Debuglabel" Text="This is underlined text." TextDecorations="Underline"/>
         <Button Text="Start Game" Clicked="ButtonStartGame_Clicked"></Button>
         <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
         <Button Text="GPS Test" Clicked="ButtonGps_Clicked"></Button>
