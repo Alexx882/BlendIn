@@ -14,8 +14,10 @@ namespace BlendIn.Connection
 {
     public class WebSocketClient
     {
-        ClientWebSocket client = new ClientWebSocket();
-        CancellationTokenSource cts = new CancellationTokenSource();
+        private ClientWebSocket client = new ClientWebSocket();
+        private CancellationTokenSource cts = new CancellationTokenSource();
+        public string UserName { get; set; }
+        public bool IsHunter { get; set; }
 
         private static WebSocketClient _instance = null;
 
@@ -69,7 +71,6 @@ namespace BlendIn.Connection
             if (baseMsg.@event == "connected")
             {
                 Debug.WriteLine("### Connected");
-                SendMessageAsync(new BaseMessage(){ @event = "thanks"});
             }
             else if (baseMsg.@event == "login")
             {
