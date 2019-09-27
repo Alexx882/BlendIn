@@ -21,6 +21,16 @@ function getLobbyByName(lobbyname) {
     return lobby;
 }
 
+function getUserInLobbyByName(lobby, username) {
+    let foundUser = null;
+    lobby.users.forEach(user => {
+        if (user.name == username) {
+            foundUser = user;
+        }
+    });
+    return foundUser;
+}
+
 /**
  * Login a client
  * needs to contain:
@@ -73,8 +83,14 @@ function location(client, message) {
         ))
         return;
     }
-    var location = new Location(message.latitude, message.longitude);
-    
+    user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    user.location = new Location(message.latitude, message.longitude);
 }
 
 function start(client, message) {
@@ -86,8 +102,6 @@ function start(client, message) {
         ))
         return;
     }
-    var hunter = lobby.users[Math.floor(Math.random() * lobby.users.length)];
-    hunter.isHunter = true;
     lobby.start(15);
 }
 
@@ -131,7 +145,7 @@ wss.on('connection', function connection(ws) {
                         user: user.name
                     })
                     user.connected = false;
-                    console.log(user.name + " disconnected")
+                    console.log("" + user.name + " disconnected")
                     return;
                 }
             });

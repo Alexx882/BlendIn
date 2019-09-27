@@ -77,7 +77,9 @@ class Lobby {
     start(secondsToStart) {
         this._playing = true;
         var startTime = (new Date).getTime() + secondsToStart * 1000;
-        var startMsg = new StartMsg(this.name, startTime)
+        var hunter = this.users[Math.floor(Math.random() * this.users.length)];
+        hunter.isHunter = true;
+        var startMsg = new StartMsg(this.name, startTime, hunter.name)
         this.sendToMembers(startMsg);
     }
 
