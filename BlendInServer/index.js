@@ -48,12 +48,14 @@ function login(client, message) {
         lobby.addUser(new User(client, message.username))
         lobby.sendToMembersExcept({ event: "join", user: message.username }, [ message.username ])
     } catch(exists) {
-        console.log(exists)
+        
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
         ))
         return;
     }    
+    console.log("Created new lobby:")
+    console.log(lobby)
     client.send(JSON.stringify({
         event: event,
         status: "success",
@@ -121,7 +123,6 @@ wss.on('connection', function connection(ws) {
     });
 
     ws.on('close', function close(code, reason) {
-        console.log('disconnected');
         lobbies.forEach(lobby => {
             lobby.users.forEach(user => {
                 if(user.socket == ws) {
@@ -129,14 +130,26 @@ wss.on('connection', function connection(ws) {
                         event: "leave", 
                         user: user.name
                     })
+                    user.connected = false;
                     console.log(user.name + " disconnected")
                     return;
                 }
             });
+            // remove disconnected users
+            lobby.users = lobby.users.filter(function(user, index, arr){
+                return user.connected == true;
+            });
+            // remove empty lobbies
+            lobbies = lobbies.filter(function(lobby, index, arr){
+                return lobby.users.length > 0
+            });
+            console.log(lobby)
+            console.log(lobbies)
         });
-        console.log("WebSocket (user not logged in) disconnected")
+        console.log("[WS] WebSocket disconnected")
     });
 
     // Send on connected
     ws.send(JSON.stringify({ event: "connected", info: 'You successfully connected!' }));
+    console.log("[WS] User connected!")
 });

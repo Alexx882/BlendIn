@@ -4,6 +4,7 @@ class User {
         this.name = name;
         this.isHunter = false;
         this.location = null;
+        this.connected = true;
     }
 
     toJSON(){
