@@ -1,0 +1,16 @@
+{
+  "name": "blendinserver",
+  "version": "1.0.0",
+  "description": "The game server for the mobile game \"Blend In\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^7.1.2"
+  }
+}
