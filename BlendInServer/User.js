@@ -8,7 +8,7 @@ class User {
     toJSON(){
         return {
             name: this.name,
-            isHunter: this.isHunter
+            //isHunter: this.isHunter
         };
     }
 }
