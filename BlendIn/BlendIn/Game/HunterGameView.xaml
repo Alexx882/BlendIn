@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="black"
+             x:Class="BlendIn.Game.HunterGameView">
+    <ContentPage.Content>
+        <StackLayout Padding="60"
+                     BackgroundColor="black"
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="CenterAndExpand" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>                
+                    <RowDefinition Height="1*"/>                
+                </Grid.RowDefinitions>
+            <Label x:Name="oct_null" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_eins" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_zwei" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_drei" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_vier" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_fuenf" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_sechs" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+                <!--
+            <Label x:Name="oct_sieben" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+               
+            <Button Grid.Row="6"
+                    Grid.Column="0" 
+                x:Name="ButtonStun"
+                Text="Stun" 
+                Clicked="Stun_Clicked"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+                
+            <Button Grid.Row="6"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                x:Name="ButtonCatch"
+                Text="Catch" 
+                Clicked="Catch_Clicked" 
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+
+            <Button Grid.Row="6"
+                    Grid.Column="3"  
+                    x:Name="ButtonExpose"
+                Text="Expose" 
+                Clicked="Expose_Clicked"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+                -->
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

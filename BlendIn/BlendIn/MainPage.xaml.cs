@@ -33,7 +33,7 @@ namespace BlendIn
 
         private void ButtonStartGame_Clicked(object sender, EventArgs e)
         {
-            GameView v = new GameView();
+            HunterGameView v = new HunterGameView();
             ((App) App.Current).NavigationPage.PushAsync(v);
         }
 

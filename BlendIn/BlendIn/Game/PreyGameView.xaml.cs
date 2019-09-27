@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace BlendIn.Game
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GameView : ContentPage
+    public partial class PreyGameView : ContentPage
     {
-        public GameView()
+        public PreyGameView()
         {
             InitializeComponent();
         }

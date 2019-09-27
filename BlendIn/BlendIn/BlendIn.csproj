@@ -16,7 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Game\GameView.xaml">
+    <EmbeddedResource Update="Game\HunterGameView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Game\PreyGameView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Game\TimerView.xaml">
@@ -47,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Game\HunterGameView.xaml.cs">
+      <DependentUpon>HunterGameView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ViewJoinGame.xaml.cs">
       <DependentUpon>ViewJoinGame.xaml</DependentUpon>
     </Compile>

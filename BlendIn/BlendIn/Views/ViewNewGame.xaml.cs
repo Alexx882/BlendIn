@@ -31,6 +31,7 @@ namespace BlendIn.Views
             WebSocketClient.Instance.RegisterForMessage<TimerResponse>(HandleTimerResponse);
 
             await WebSocketClient.Instance.SendMessageAsync(new LoginMessage(){ @event = "login", username = name});
+            WebSocketClient.Instance.UserName = name;
         }
 
         private void HandleTimerResponse(object obj)
