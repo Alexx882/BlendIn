@@ -33,6 +33,7 @@ namespace BlendIn.Views
 
             await WebSocketClient.Instance.SendMessageAsync(new LoginMessage()
                 {@event = "login", username = username, lobby = joinGameCode});
+            WebSocketClient.Instance.UserName = username;
         }
 
         private void HandleTimerResponse(object obj)
