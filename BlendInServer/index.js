@@ -6,6 +6,7 @@ const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
+const ExposeMsg = require('./ExposeMsg.js')
 
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -158,6 +159,48 @@ function stun(client, message) {
     });
 }
 
+function expose(client, message) {
+    var event = "expose"
+    var lobby = getLobbyByName(message.lobby)
+    if (lobby == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby with this name does not exist")
+        ))
+        return;
+    }
+    if (lobby.playing == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is not playing yet! U l33t haX0r?")
+        ))
+        return;
+    }
+    user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (user.isHunter == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is not hunter and cannot use Expose")
+        ))
+        return;
+    }
+    var exposedPrey = [];
+    lobby.users.forEach(prey => {
+        if(prey.isHunter == false) {
+            var dist = Calculations.distance(user.location, prey.location);
+            exposedPrey.push({ user: prey, duration: Math.floor(dist) })
+        }
+    });
+
+    //expose all the prey for (distance in m) * 1 seconds
+    exposedPrey.forEach(exposed => {
+        exposed.user.socket.send(new ExposeMsg(exposed.duration))
+    });
+}
+
 wss.on('connection', function connection(ws) {
     // This event fires when any connected socket sends a message
     ws.on('message', function incoming(jsonmessage) {
@@ -168,7 +211,7 @@ wss.on('connection', function connection(ws) {
             } catch (error) {
                 ws.send(JSON.stringify({ error: error }));
             }
-            console.log(lobbies)
+            // console.log(lobbies)
             switch (message.event) {
                 case "login":
                     login(ws, message)
@@ -181,6 +224,9 @@ wss.on('connection', function connection(ws) {
                     break;
                 case "stun":
                     stun(ws, message)
+                    break;
+                case "expose":
+                    expose(ws, message)
                     break;
                 default:
                     ws.send(JSON.stringify({ error: "Undefind event!" }));
@@ -201,7 +247,7 @@ wss.on('connection', function connection(ws) {
                         user: user.name
                     })
                     user.connected = false;
-                    console.log("" + user.name + " disconnected")
+                    console.log("[INFO] " + user.name + " disconnected from " + lobby.name)
                     return;
                 }
             });
@@ -226,7 +272,7 @@ wss.on('connection', function connection(ws) {
 const interval = setInterval(function tick() {
     lobbies.forEach(lobby => {
         if(lobby.playing) {
-            // console.log("[%s] Lobby tick.", lobby.name)
+            console.log("[%s] Lobby tick.", lobby.name)
             lobby.users.forEach(user => {
                 user.socket.send(JSON.stringify(new Tick(lobby.users)))
             });
