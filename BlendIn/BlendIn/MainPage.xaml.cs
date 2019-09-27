@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlendIn.Tests;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace BlendIn
 {
@@ -16,6 +17,8 @@ namespace BlendIn
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+
+        double personalCompassDegrees;
         public MainPage()
         {
             InitializeComponent();
@@ -26,6 +29,7 @@ namespace BlendIn
         public double AdjustCompassFunction(double d)
         {
             Debuglabel.Text = $"Reading: {d} degrees";
+            personalCompassDegrees = d;
             return d;
         }
 
@@ -57,6 +61,15 @@ namespace BlendIn
         {
             var v = new WebSocketTestView();
             Navigation.PushAsync(v);
+        }
+
+        private void Location_Test_Clicked(object sender, EventArgs e)
+        {
+            Location boston = new Location(42.358056, -71.063611);
+            Location sanFrancisco = new Location(37.783333, -122.416667);
+            double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
+            //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
+            LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco,personalCompassDegrees);
         }
 
         private void JoinGame_Clicked(object sender, EventArgs e)
