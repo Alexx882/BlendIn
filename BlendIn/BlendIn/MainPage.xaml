@@ -13,6 +13,7 @@
            VerticalOptions="CenterAndExpand" />
         <Button Text="Start Game" Clicked="ButtonStartGame_Clicked"></Button>
         <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
+        <Button Text="GPS Test" Clicked="ButtonGps_Clicked"></Button>
     </StackLayout>
 
 </ContentPage>
