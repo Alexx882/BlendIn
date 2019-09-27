@@ -10,7 +10,7 @@ namespace BlendIn
 
         public Location location;
         public string playerName;
-        public bool IsHunter => WebSocketClient.Instance.IsHunter;
+        public bool isHunter;
 
         Player(string playerName, Location location)
         {
