@@ -25,10 +25,12 @@ class Lobby {
         if(this._playing == true) {
             throw "Cannot join a lobby that is already playing..."
         }
-        if(this._users.includes(user)) {
-            console.error(user + " exists in " + this._name)
-            throw "User with that name already exists"
-        }
+        this._users.forEach(currUsr => {
+            if(currUsr.name == user.name) {
+                console.error(user + " exists in " + this._name)
+                throw "User with that name already exists"
+            }
+        });
         this._users.push(user)
     }
 

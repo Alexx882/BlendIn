@@ -3,6 +3,7 @@ const WebSocket = require('ws');
 const Lobby = require('./Lobby.js')
 const User = require('./User.js')
 const StartMsg = require('./StartMsg.js')
+const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -45,17 +46,19 @@ function login(client, message) {
     }
     try {
         lobby.addUser(new User(client, message.username))
-        lobby.sendToMembersExcept({ event: "join", user: message.username }, [  ])
+        lobby.sendToMembersExcept({ event: "join", user: message.username }, [ message.username ])
     } catch(exists) {
         console.log(exists)
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
         ))
+        return;
     }    
     client.send(JSON.stringify({
         event: event,
         status: "success",
-        lobby_name: lobby.name
+        lobby_name: lobby.name,
+        lobby_size: lobby.users.length
      }))
 }
 
@@ -68,7 +71,8 @@ function location(client, message) {
         ))
         return;
     }
-
+    var location = new Location(message.latitude, message.longitude);
+    
 }
 
 function start(client, message) {
@@ -80,6 +84,8 @@ function start(client, message) {
         ))
         return;
     }
+    var hunter = lobby.users[Math.floor(Math.random() * lobby.users.length)];
+    hunter.isHunter = true;
     lobby.start(15);
 }
 
@@ -97,6 +103,12 @@ wss.on('connection', function connection(ws) {
             switch (message.event) {
                 case "login":
                     login(ws, message)
+                    break;
+                case "start":
+                    start(ws, message)
+                    break;
+                case "location":
+                    location(ws, message)
                     break;
                 default:
                     ws.send(JSON.stringify({ error: "Undefind event!" }));
