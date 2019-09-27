@@ -18,6 +18,9 @@
     <EmbeddedResource Update="Game\GameView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Game\TimerView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Tests\FlashlightTestView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -30,9 +33,24 @@
     <EmbeddedResource Update="Tests\WebSocketTestView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ViewNewGame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ViewJoinGame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="QrCode\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\ViewJoinGame.xaml.cs">
+      <DependentUpon>ViewJoinGame.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ViewNewGame.xaml.cs">
+      <DependentUpon>ViewNewGame.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
