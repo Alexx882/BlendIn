@@ -4,12 +4,70 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="black"
              x:Class="BlendIn.Game.HunterGameView">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="black">
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout BackgroundColor="black"
+                     VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="CenterAndExpand" >
+            <Label x:Name="oct_null" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_eins" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_zwei" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_drei" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_vier" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_fuenf" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_sechs" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Label x:Name="oct_sieben" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+          
+            <Button x:Name="ButtonCatch"
+                Text="Catch" 
+                Clicked="Catch_Clicked"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+
+            <Button x:Name="ButtonStun"
+                Text="Stun" 
+                Clicked="Stun_Clicked"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+
+            <Button x:Name="ButtonDiscover"
+                Text="Discover" 
+                Clicked="Discover_Clicked"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
