@@ -36,15 +36,18 @@ namespace BlendIn.Game
                 remainingSeconds--;
             }
 
-            if (WebSocketClient.Instance.UserName == _hunter_name)
+            WebSocketClient.Instance.IsHunter = WebSocketClient.Instance.UserName == _hunter_name;
+            if (WebSocketClient.Instance.IsHunter)
             {
                 Device.BeginInvokeOnMainThread(() => LabelInfo.Text = "You are the hunter");
-                WebSocketClient.Instance.IsHunter = true;
+                Thread.Sleep(1000);
+                Navigation.PushAsync(new HunterGameView());
             }
             else
             {
                 Device.BeginInvokeOnMainThread(() => LabelInfo.Text = "You are prey");
-                WebSocketClient.Instance.IsHunter = false;
+                Thread.Sleep(1000);
+                Navigation.PushAsync(new PreyGameView());
             }
         }
     }
