@@ -63,12 +63,12 @@
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
-
+                <!--
             <Label x:Name="oct_sieben" 
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
-                <!--
+               
             <Button Grid.Row="6"
                     Grid.Column="0" 
                 x:Name="ButtonStun"
