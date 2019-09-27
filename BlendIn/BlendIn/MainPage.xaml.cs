@@ -74,14 +74,13 @@ namespace BlendIn
 
         private void JoinGame_Clicked(object sender, EventArgs e)
         {
-            //string joinGameCode = gameCode.Text;
-            View1hunter v = new View1hunter();
-            ((App)App.Current).NavigationPage.PushAsync(v);
+            ViewJoinGame v = new ViewJoinGame();
+            Navigation.PushAsync(v);
         }
 
         private void NewGame_Clicked(object sender, EventArgs e)
         {
-            View1prey v = new View1prey();
+            ViewNewGame v = new ViewNewGame();
             Navigation.PushAsync(v);
         }
     }

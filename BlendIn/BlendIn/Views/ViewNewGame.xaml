@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BlendIn.Views.ViewNewGame">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label x:Name="LabelLobby" Text="" />
+            <Entry x:Name="EntryUsername" Text="Username"></Entry>
+            <Button Text="Lobby öffnen" Clicked="Button_OnClicked"></Button>
+            <Label x:Name="LabelConnectedPlayers" Text=""></Label>
+            <Button Text="Spiel starten" Clicked="ButtonStart_OnClicked"></Button>
+      </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
