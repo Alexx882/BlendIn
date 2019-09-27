@@ -136,5 +136,7 @@
       <Name>BlendIn</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\sound.wav" />
+  </ItemGroup>
 </Project>

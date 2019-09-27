@@ -4,10 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BlendIn.Game.GameView">
+             x:Class="BlendIn.Game.TimerView">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="black">
-            <Label Text="Welcome to Xamarin.Forms!"
+        <StackLayout>
+            <Label x:Name="LabelInfo"  Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

@@ -1,4 +1,5 @@
 ﻿using BlendIn.Game;
+using BlendIn.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,6 +68,21 @@ namespace BlendIn
             double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
             LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco,GameLogic.personalCompassDegrees);
+            SoundController sound = new SoundController();
+            sound.audio.Loop = true;
+            sound.audio.Play();
+        }
+
+        private void JoinGame_Clicked(object sender, EventArgs e)
+        {
+            ViewJoinGame v = new ViewJoinGame();
+            Navigation.PushAsync(v);
+        }
+
+        private void NewGame_Clicked(object sender, EventArgs e)
+        {
+            ViewNewGame v = new ViewNewGame();
+            Navigation.PushAsync(v);
         }
     }
 }

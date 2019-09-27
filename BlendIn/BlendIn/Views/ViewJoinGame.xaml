@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="Black"
+             x:Class="BlendIn.Views.ViewJoinGame">
+    <ContentPage.Content>
+        <StackLayout Padding="60"
+                 VerticalOptions="Center">
+            <Label Text="Username:" 
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand" />
+
+            <Entry x:Name="EntryUsername"
+                   BackgroundColor="LightGray"></Entry>
+
+            <Label Text="Game Code:" 
+                TextColor="White"
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+
+            <Entry x:Name="EntryGameCode"
+               BackgroundColor="LightGray"></Entry>
+
+            <Button x:Name="ButtonGo"
+                Text="GO" 
+                Clicked="Go_Clicked"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+
+            <Label x:Name="LabelOutput" Text="" TextColor="White"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
