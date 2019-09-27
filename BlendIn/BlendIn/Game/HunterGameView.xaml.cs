@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using BlendIn.Connection;
+using BlendIn.Connection.Messages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BlendIn.Game
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
-
-
     public partial class HunterGameView : ContentPage
     {
         public double exposeCDValue = 20;
@@ -27,30 +25,34 @@ namespace BlendIn.Game
         {
             InitializeComponent();
             new Thread(() => HunterLoop()).Start();
-
         }
 
         public void Stun_Clicked()
         {
-            //TODO Do Something Usefull aka actually stun here
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+                {@event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
             stunCurrent = stunCDValue;
             //ButtonStun.IsEnabled = false;
-
         }
 
 
         public void Expose_Clicked()
         {
-            //TODO Do Something Usefull aka actually expose here
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+                {@event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
             exposeCurrent = exposeCDValue;
             //ButtonExpose.IsEnabled = false;
-
         }
 
         public void Catch_Clicked()
         {
-            //TODO Do Something Usefull aka actually catch here
-
+            // todo barcode
+            var caught_user = "user";
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+            {
+                @event = "catch", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName,
+                caught = caught_user
+            });
         }
 
         private void HunterLoop()
@@ -95,8 +97,8 @@ namespace BlendIn.Game
             {
                 s += "*";
             }
+
             return s;
         }
     }
-
 }
