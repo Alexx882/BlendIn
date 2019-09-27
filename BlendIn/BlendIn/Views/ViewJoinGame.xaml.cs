@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlendIn.Connection;
 using BlendIn.Connection.Messages;
 using BlendIn.Connection.Responses;
+using BlendIn.Game;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,13 +31,18 @@ namespace BlendIn.Views
             WebSocketClient.Instance.RegisterForMessage<LoginResponse>(HandleLoginResponse);
             WebSocketClient.Instance.RegisterForMessage<TimerResponse>(HandleTimerResponse);
 
-            await WebSocketClient.Instance.SendMessageAsync(new LoginMessage(){@event = "login", username = username, lobby = joinGameCode});
-
+            await WebSocketClient.Instance.SendMessageAsync(new LoginMessage()
+                {@event = "login", username = username, lobby = joinGameCode});
         }
 
         private void HandleTimerResponse(object obj)
         {
             var response = obj as TimerResponse;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var v = new TimerView(response);
+                Navigation.PushAsync(v);
+            });
         }
 
         private void HandleLoginResponse(object obj)

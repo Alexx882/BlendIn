@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlendIn.Connection;
 using BlendIn.Connection.Messages;
 using BlendIn.Connection.Responses;
+using BlendIn.Game;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,6 +36,11 @@ namespace BlendIn.Views
         private void HandleTimerResponse(object obj)
         {
             var response = obj as TimerResponse;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var v = new TimerView(response);
+                Navigation.PushAsync(v);
+            });
         }
 
         private void HandlePlayerJoined(object obj)
