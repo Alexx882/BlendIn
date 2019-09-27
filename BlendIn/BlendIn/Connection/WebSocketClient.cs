@@ -16,8 +16,6 @@ namespace BlendIn.Connection
     {
         private ClientWebSocket client = new ClientWebSocket();
         private CancellationTokenSource cts = new CancellationTokenSource();
-        public string UserName { get; set; }
-        public bool IsHunter { get; set; }
 
         private static WebSocketClient _instance = null;
 
@@ -89,6 +87,12 @@ namespace BlendIn.Connection
                 var loginMsg = JsonConvert.DeserializeObject<TimerResponse>(message);
                 if (_registeredCallbacks.ContainsKey(typeof(TimerResponse)))
                     _registeredCallbacks[typeof(TimerResponse)]?.Invoke(loginMsg);
+            }
+            else if (baseMsg.@event == "tick")
+            {
+                var loginMsg = JsonConvert.DeserializeObject<TickResponse>(message);
+                if (_registeredCallbacks.ContainsKey(typeof(TickResponse)))
+                    _registeredCallbacks[typeof(TickResponse)]?.Invoke(loginMsg);
             }
         }
 
