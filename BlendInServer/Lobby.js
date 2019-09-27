@@ -86,7 +86,10 @@ class Lobby {
     stop() {
         this._playing = false;
     }
-    
+
+    get playing() {
+        return this._playing;
+    }
 }
 
 module.exports = Lobby;

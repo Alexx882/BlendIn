@@ -9,6 +9,7 @@ const wss = new WebSocket.Server({ port: 8080 });
 
 // TODO maybe redis?
 var lobbies = [];
+var tickrate = 2;
 
 function getLobbyByName(lobbyname) {
     let lobby = null;
@@ -157,8 +158,6 @@ wss.on('connection', function connection(ws) {
             lobbies = lobbies.filter(function(lobby, index, arr){
                 return lobby.users.length > 0
             });
-            console.log(lobby)
-            console.log(lobbies)
         });
         console.log("[WS] WebSocket disconnected")
     });
@@ -167,3 +166,15 @@ wss.on('connection', function connection(ws) {
     ws.send(JSON.stringify({ event: "connected", info: 'You successfully connected!' }));
     console.log("[WS] User connected!")
 });
+
+// Server ticking
+const interval = setInterval(function tick() {
+    lobbies.forEach(lobby => {
+        if(lobby.playing) {
+            console.log("[%s] Lobby tick.", lobby.name)
+            lobby.users.forEach(user => {
+                user.send(new Tick(lobby.users))
+            });
+        }
+    });
+  }, 1000 / tickrate);
