@@ -1,4 +1,5 @@
 ﻿using BlendIn.Game;
+using BlendIn.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,12 +20,21 @@ namespace BlendIn
             InitializeComponent();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void NewGame_Clicked(object sender, EventArgs e)
         {
-            GameView v = new GameView();
+            View1prey v = new View1prey();
             ((App)App.Current).NavigationPage.PushAsync(v);
 
             
+        }
+
+        private void JoinGame_Clicked(object sender, EventArgs e)
+        {
+            //string joinGameCode = gameCode.Text;
+            View1hunter v = new View1hunter();
+            ((App)App.Current).NavigationPage.PushAsync(v);
+
+
         }
     }
 }

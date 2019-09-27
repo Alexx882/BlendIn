@@ -3,15 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="BlendIn.MainPage">
+             mc:Ignorable="d"           
+             x:Class="BlendIn.MainPage"
+             Title="Hunter and Prey"        
+             BackgroundColor="Black">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Join Blend In!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-        <Button Text="Start Game" Clicked="Button_Clicked"></Button>
-    </StackLayout>
+    <StackLayout BackgroundColor="Black"
+                 Padding="60"
+                 VerticalOptions="Center">
+        <Button Text="New Game" 
+                Clicked="NewGame_Clicked"
+                BorderColor="White"
+                TextColor="White"></Button>
+        
+        <Button Text="Join Game" 
+                Clicked="JoinGame_Clicked"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>   
+   </StackLayout>
 
 </ContentPage>

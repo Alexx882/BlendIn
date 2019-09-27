@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="BlendIn.Game.GameView">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="black">
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
