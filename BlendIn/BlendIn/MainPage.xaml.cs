@@ -67,6 +67,9 @@ namespace BlendIn
             double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
             LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco,GameLogic.personalCompassDegrees);
+            SoundController sound = new SoundController();
+            sound.audio.Loop = true;
+            sound.audio.Play();
         }
     }
 }
