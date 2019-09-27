@@ -11,10 +11,11 @@ namespace BlendIn
     public class Calculations
     {
        
-        public static int GetOctantBetweenTwoPoints(Location a, Location b)
+        public static int GetOctantBetweenTwoPoints(Location a, Location b, double compass)
         {
             //COUNTED FROM 0-7
-            return (int)DegreeBearing(a.Latitude, a.Longitude,b.Latitude, b.Longitude)/45;
+            double degree = (DegreeBearing(a.Latitude, a.Longitude, b.Latitude, b.Longitude) + compass) % 360;
+            return (int)(degree/45);
         }
 
         /*public static double getFinalBearing(Location a, Location b)
