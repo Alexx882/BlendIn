@@ -18,7 +18,6 @@ namespace BlendIn
     public partial class MainPage : ContentPage
     {
 
-        double personalCompassDegrees;
         public MainPage()
         {
             InitializeComponent();
@@ -28,8 +27,7 @@ namespace BlendIn
 
         public double AdjustCompassFunction(double d)
         {
-            Debuglabel.Text = $"Reading: {d} degrees";
-            personalCompassDegrees = d;
+            GameLogic.personalCompassDegrees = d;
             return d;
         }
 
@@ -69,7 +67,7 @@ namespace BlendIn
             Location sanFrancisco = new Location(37.783333, -122.416667);
             double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
-            LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco,personalCompassDegrees);
+            LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco,GameLogic.personalCompassDegrees);
         }
 
         private void JoinGame_Clicked(object sender, EventArgs e)

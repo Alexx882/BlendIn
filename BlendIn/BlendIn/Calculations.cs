@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
-using ZXing.Net.Mobile.Forms;
+
 
 namespace BlendIn
 {
