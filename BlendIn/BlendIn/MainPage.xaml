@@ -16,6 +16,7 @@
         <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
         <Button Text="GPS Test" Clicked="ButtonGps_Clicked"></Button>
         <Button Text="Qr Test" Clicked="ButtonQr_Clicked"></Button>
+        <Button Text="WebSocket Test" Clicked="ButtonWebSocket_Clicked"></Button>
     </StackLayout>
 
 </ContentPage>
