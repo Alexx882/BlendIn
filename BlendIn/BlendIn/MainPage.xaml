@@ -15,11 +15,21 @@
                 Clicked="NewGame_Clicked"
                 BorderColor="White"
                 TextColor="White"></Button>
-        
+
         <Button Text="Join Game" 
                 Clicked="JoinGame_Clicked"
                 BackgroundColor="Gray"
-                TextColor="White"></Button>   
-   </StackLayout>
+                TextColor="White"></Button>
+
+        <Label Text="Join Blend In!" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+        <Label x:Name ="Debuglabel" Text="This is underlined text." TextDecorations="Underline"/>
+        <Button Text="Start Game" Clicked="ButtonStartGame_Clicked"></Button>
+        <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
+        <Button Text="GPS Test" Clicked="ButtonGps_Clicked"></Button>
+        <Button Text="Qr Test" Clicked="ButtonQr_Clicked"></Button>
+        <Button Text="WebSocket Test" Clicked="ButtonWebSocket_Clicked"></Button>
+    </StackLayout>
 
 </ContentPage>

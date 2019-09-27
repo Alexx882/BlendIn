@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlendIn.Tests;
 using Xamarin.Forms;
 
 namespace BlendIn
@@ -18,14 +19,44 @@ namespace BlendIn
         public MainPage()
         {
             InitializeComponent();
+            Hardware.registerCompass(AdjustCompassFunction);
+            Hardware.ToggleCompass();
         }
 
-        private void NewGame_Clicked(object sender, EventArgs e)
+        public double AdjustCompassFunction(double d)
         {
-            View1prey v = new View1prey();
-            ((App)App.Current).NavigationPage.PushAsync(v);
+            Debuglabel.Text = $"Reading: {d} degrees";
+            return d;
+        }
 
-            
+        private void ButtonStartGame_Clicked(object sender, EventArgs e)
+        {
+            GameView v = new GameView();
+            ((App) App.Current).NavigationPage.PushAsync(v);
+        }
+
+        private void ButtonFlashlight_Clicked(object sender, EventArgs e)
+        {
+            var v = new FlashlightTestView();
+            ((App) App.Current).NavigationPage.PushAsync(v);
+        }
+
+        private void ButtonGps_Clicked(object sender, EventArgs e)
+        {
+            var v = new GpsView();
+            ((App)App.Current).NavigationPage.PushAsync(v);
+        }
+
+        private void ButtonQr_Clicked(object sender, EventArgs e)
+        {
+            var v = new QrTestView();
+            ((App)App.Current).NavigationPage.PushAsync(v);
+        }
+
+        private void ButtonWebSocket_Clicked(object sender, EventArgs e)
+        {
+            var v = new WebSocketTestView();
+            Navigation.PushAsync(v);
         }
 
         private void JoinGame_Clicked(object sender, EventArgs e)
@@ -33,8 +64,12 @@ namespace BlendIn
             //string joinGameCode = gameCode.Text;
             View1hunter v = new View1hunter();
             ((App)App.Current).NavigationPage.PushAsync(v);
+        }
 
-
+        private void NewGame_Clicked(object sender, EventArgs e)
+        {
+            View1prey v = new View1prey();
+            Navigation.PushAsync(v);
         }
     }
 }

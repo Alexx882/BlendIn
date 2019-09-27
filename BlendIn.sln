@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendIn.Android", "BlendIn\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendIn.iOS", "BlendIn\BlendIn.iOS\BlendIn.iOS.csproj", "{328EB027-9438-4250-ADC4-525650F12170}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendIn", "BlendIn\BlendIn\BlendIn.csproj", "{98CE086C-D9D8-46BC-8CB5-C0DA5D87FCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlendIn", "BlendIn\BlendIn\BlendIn.csproj", "{98CE086C-D9D8-46BC-8CB5-C0DA5D87FCB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
