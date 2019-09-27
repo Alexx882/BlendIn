@@ -5,7 +5,7 @@
  * @param {double} lat2
  * @param {double} lon2
  */
-function distance(lat1, lon1, lat2, lon2) {
+static function distance(lat1, lon1, lat2, lon2) {
     var R = 6371e3; // metres
     var φ1 = lat1.toRadians();
     var φ2 = lat2.toRadians();
@@ -19,4 +19,8 @@ function distance(lat1, lon1, lat2, lon2) {
 
     var d = R * c;
     return d;
+}
+
+static function distance(loc1, loc2) {
+    return this.distance(loc1.lat, loc1.long, loc2.lat, loc2.long)
 }

@@ -6,6 +6,8 @@ const User = require('./User.js')
 const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
+const Calculations = require('./Calculations.js')
+
 const wss = new WebSocket.Server({ port: 8080 });
 
 // TODO maybe redis?
@@ -114,6 +116,49 @@ function start(client, message) {
     lobby.start(15);
 }
 
+function stun(client, message) {
+    var event = "stun"
+    var lobby = getLobbyByName(message.lobby)
+    if (lobby == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby with this name does not exist")
+        ))
+        return;
+    }
+    if (lobby.playing == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "Lobby is not playing yet! How the fuck did you???")
+        ))
+        return;
+    }
+    user = getUserInLobbyByName(lobby, message.username)
+    if (user == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (user.isHunter == false) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User is not hunter and cannot use Stun")
+        ))
+        return;
+    }
+    var stunnedPrey = [];
+    lobby.users.forEach(prey => {
+        if(prey.isHunter == false) {
+            var dist = Calculations.distance(user.location, prey.location);
+            if (dist < 10) {
+                stunnedPrey.push({ user: prey, distance: dist })
+            }
+        }
+    });
+
+    stunnedPrey.forEach(stunned => {
+        stunned.user.socket.send(new StunMsg(stunned.distance))
+    });
+}
+
 wss.on('connection', function connection(ws) {
     // This event fires when any connected socket sends a message
     ws.on('message', function incoming(jsonmessage) {
@@ -134,6 +179,9 @@ wss.on('connection', function connection(ws) {
                     break;
                 case "location":
                     location(ws, message)
+                    break;
+                case "stun":
+                    stun(ws, message)
                     break;
                 default:
                     ws.send(JSON.stringify({ error: "Undefind event!" }));
