@@ -7,9 +7,28 @@
              BackgroundColor="black"
              x:Class="BlendIn.Game.HunterGameView">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="black"
+        <StackLayout Padding="60"
+                     BackgroundColor="black"
                      VerticalOptions="CenterAndExpand" 
                      HorizontalOptions="CenterAndExpand" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>                
+                    <RowDefinition Height="1*"/>                
+                </Grid.RowDefinitions>
             <Label x:Name="oct_null" 
                    TextColor="White"
                    HorizontalOptions="Center"
@@ -49,25 +68,36 @@
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
-          
-            <Button x:Name="ButtonCatch"
-                Text="Catch" 
-                Clicked="Catch_Clicked"
-                BackgroundColor="Gray"
-                TextColor="White"></Button>
-
-            <Button x:Name="ButtonStun"
+                <!--
+            <Button Grid.Row="6"
+                    Grid.Column="0" 
+                x:Name="ButtonStun"
                 Text="Stun" 
                 Clicked="Stun_Clicked"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Gray"
+                TextColor="White"></Button>
+                
+            <Button Grid.Row="6"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                x:Name="ButtonCatch"
+                Text="Catch" 
+                Clicked="Catch_Clicked" 
+                HorizontalOptions="FillAndExpand"
                 BackgroundColor="Gray"
                 TextColor="White"></Button>
 
-            <Button x:Name="ButtonDiscover"
-                Text="Discover" 
-                Clicked="Discover_Clicked"
+            <Button Grid.Row="6"
+                    Grid.Column="3"  
+                    x:Name="ButtonExpose"
+                Text="Expose" 
+                Clicked="Expose_Clicked"
+                HorizontalOptions="FillAndExpand"
                 BackgroundColor="Gray"
                 TextColor="White"></Button>
-
+                -->
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
