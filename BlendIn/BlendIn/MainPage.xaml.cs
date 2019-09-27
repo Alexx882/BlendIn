@@ -43,5 +43,11 @@ namespace BlendIn
             var v = new QrTestView();
             ((App)App.Current).NavigationPage.PushAsync(v);
         }
+
+        private void ButtonWebSocket_Clicked(object sender, EventArgs e)
+        {
+            var v = new WebSocketTestView();
+            Navigation.PushAsync(v);
+        }
     }
 }
