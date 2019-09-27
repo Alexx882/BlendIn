@@ -21,44 +21,12 @@ namespace BlendIn.Tests
 
         private async void ButtonOn_OnClicked(object sender, EventArgs e)
         {
-            try
-            {
-                // Turn On
-                await Flashlight.TurnOnAsync();
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Handle not supported on device exception
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-            }
-            catch (Exception ex)
-            {
-                // Unable to turn on/off flashlight
-            }
+            await Hardware.TryTurnOnFlashlight();
         }
 
         private async void ButtonOff_OnClicked(object sender, EventArgs e)
         {
-            try
-            {
-                // Turn Off
-                await Flashlight.TurnOffAsync();
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Handle not supported on device exception
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-            }
-            catch (Exception ex)
-            {
-                // Unable to turn on/off flashlight
-            }
+            await Hardware.TryTurnOffFlashlight();
         }
     }
 }
