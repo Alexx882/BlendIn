@@ -3,12 +3,14 @@ class User {
         this.socket = socket;
         this.name = name;
         this.isHunter = false;
+        this.location = null;
+        this.connected = true;
     }
 
     toJSON(){
         return {
             name: this.name,
-            isHunter: this.isHunter
+            location: this.location
         };
     }
 }

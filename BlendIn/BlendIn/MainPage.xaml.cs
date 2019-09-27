@@ -1,4 +1,5 @@
 ﻿using BlendIn.Game;
+using BlendIn.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,6 +71,18 @@ namespace BlendIn
             SoundController sound = new SoundController();
             sound.audio.Loop = true;
             sound.audio.Play();
+        }
+
+        private void JoinGame_Clicked(object sender, EventArgs e)
+        {
+            ViewJoinGame v = new ViewJoinGame();
+            Navigation.PushAsync(v);
+        }
+
+        private void NewGame_Clicked(object sender, EventArgs e)
+        {
+            ViewNewGame v = new ViewNewGame();
+            Navigation.PushAsync(v);
         }
     }
 }

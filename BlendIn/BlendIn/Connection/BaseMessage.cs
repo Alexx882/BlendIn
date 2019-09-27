@@ -6,6 +6,8 @@ namespace BlendIn.Connection
 {
     public class BaseMessage
     {
-        public string Event { get; set; }
+        public string @event { get; set; }
+        public string status { get; set; }
+        public string error { get; set; }
     }
 }

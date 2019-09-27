@@ -1,3 +1,4 @@
+const StartMsg = require('./StartMsg.js')
 class Lobby {
 
     makeid(length) {
@@ -22,12 +23,14 @@ class Lobby {
 
     addUser(user) {
         if(this._playing == true) {
-            throw "Cannot join a lobby that is already playing :("
+            throw "Cannot join a lobby that is already playing..."
         }
-        if(this._users.includes(user)) {
-            console.error(user + " exists in " + this._name)
-            throw "User with that name already exists"
-        }
+        this._users.forEach(currUsr => {
+            if(currUsr.name == user.name) {
+                console.error(user + " exists in " + this._name)
+                throw "User with that name already exists"
+            }
+        });
         this._users.push(user)
     }
 
@@ -55,7 +58,7 @@ class Lobby {
     sendToMembersExcept(message, ignored) {
         this._users.forEach(usr => {
             if(!ignored.includes(usr.name)) {
-                usr.send(JSON.stringify(message))
+                usr.socket.send(JSON.stringify(message))
             }
         });
     }
@@ -67,8 +70,20 @@ class Lobby {
         }
     }
 
+    /**
+     * Starts the game and notifies all members of starting time
+     * @param {Integer} secondsToStart 
+     */
+    start(secondsToStart) {
+        this._playing = true;
+        var startTime = (new Date).getTime() + secondsToStart * 1000;
+        var startMsg = new StartMsg(this.name, startTime)
+        this.sendToMembers(startMsg);
+    }
 
-
+    stop() {
+        this._playing = false;
+    }
     
 }
 
