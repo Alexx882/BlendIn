@@ -2,7 +2,6 @@
 const WebSocket = require('ws');
 const Lobby = require('./Lobby.js')
 const User = require('./User.js')
-//const StartMsg = require('./StartMsg.js')
 const Location = require('./Location.js')
 const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
@@ -12,7 +11,7 @@ const wss = new WebSocket.Server({ port: 8080 });
 
 // TODO maybe redis?
 var lobbies = [];
-var tickrate = 2;
+var tickrate = 1;
 
 function getLobbyByName(lobbyname) {
     lobbyname = lobbyname.toUpperCase();
