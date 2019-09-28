@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BlendIn.Game.TimerView"
-             BackgroundImageSource="bg.png">
+             BackgroundImageSource="gamebg.png">
     <ContentPage.Content>
         <StackLayout Padding="60">
             <Label x:Name="LabelInfo" Text=""

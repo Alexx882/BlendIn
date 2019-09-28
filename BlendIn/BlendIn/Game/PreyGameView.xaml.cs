@@ -203,21 +203,6 @@ namespace BlendIn.Game
     */
         }
 
-        public void Revive_Clicked(object sender, EventArgs e)
-        {
-            /**
-            // todo barcode
-            var caught_user = "username";
-            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            {
-                @event = "catch",
-                lobby = GameLogic.Instance.LobbyName,
-                username = GameLogic.Instance.SelfUserName,
-                caught = caught_user
-            });
-    */
-        }
-
         private void Caught_Clicked(object sender, EventArgs e)
         {
             ImageQrCode.IsVisible = !ImageQrCode.IsVisible;
