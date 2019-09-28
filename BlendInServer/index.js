@@ -8,6 +8,7 @@ const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
 const StunMsg = require('./StunMsg.js')
+const EndMsg = require('./EndMsg.js')
 const express = require('express');
 const path = require('path');
 const { createServer } = require('http');
@@ -295,9 +296,9 @@ function expose(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
-            dist = Math.max(dist, 200)
-            dist = scale(dist, 0, 200, 0, 30)
-            console.log("clamped: " + dist);
+            dist = dist / 10;
+            dist = Math.max(0, Math.min(dist, 30))
+            console.log("[INFO] Clamped stun duration: " + dist);
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
     });
