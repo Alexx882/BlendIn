@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Xml.Schema;
+using BlendIn.Connection;
+using BlendIn.Connection.Responses;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,8 +25,56 @@ namespace BlendIn.Game
         public PreyGameView()
         {
             InitializeComponent();
+
+            WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
+
             new Thread(() => PreyLoop()).Start();
 
+        }
+
+        private void HandleHunterAction(object obj)
+        {
+            var response = obj as HunterActionResponse;
+            if (response.@event == "stun")
+            {
+                Stun();
+            }
+            else if (response.@event == "expose")
+            {
+                new Thread(async () =>
+                {
+                    await Hardware.TryTurnOnFlashlight();
+                    Thread.Sleep((response.duration ?? 0) * 1000);
+                    await Hardware.TryTurnOffFlashlight();
+                });
+            }
+        }
+
+        private void Stun()
+        {
+            ToggleFlashlight();
+            PlaySound();
+        }
+
+        private async Task ToggleFlashlight(int duration = 5)
+        {
+            while (duration > 0)
+            {
+                await Hardware.TryTurnOnFlashlight();
+                Thread.Sleep(500);
+                await Hardware.TryTurnOffFlashlight();
+                Thread.Sleep(500);
+                duration--;
+            }
+        }
+
+        private async Task PlaySound(int duration = 5)
+        {
+            SoundController sc = new SoundController();
+            sc.audio.Loop = true;
+            await Device.InvokeOnMainThreadAsync(() => sc.audio.Play());
+            Thread.Sleep(duration);
+            await Device.InvokeOnMainThreadAsync(() => sc.audio.Stop());
         }
 
         private void PreyLoop()
