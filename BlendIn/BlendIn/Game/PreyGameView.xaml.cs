@@ -74,7 +74,7 @@ namespace BlendIn.Game
         private void Stun(int duration = 5)
         {
             new Thread(() => ToggleFlashlight(duration)).Start();
-            new Thread(() => PlaySound(duration)).Start();
+            new Thread(() => PlayStunSound(duration)).Start();
         }
 
         private async Task ToggleFlashlight(int duration)
@@ -99,9 +99,9 @@ namespace BlendIn.Game
             }
         }
 
-        private async Task PlaySound(int duration)
+        private async Task PlayStunSound(int duration)
         {
-            sc.audio.Loop = true;
+            sc.loadStun();
             Device.BeginInvokeOnMainThread(() => sc.audio.Play());
             Thread.Sleep(duration*1000);
             Device.BeginInvokeOnMainThread(() => sc.audio.Stop());
@@ -218,6 +218,7 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
+            sc.loadCloak();
             sc.audio.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
