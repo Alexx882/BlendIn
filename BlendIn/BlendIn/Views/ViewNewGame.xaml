@@ -4,14 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BlendIn.Views.ViewNewGame">
+             x:Class="BlendIn.Views.ViewNewGame"
+             BackgroundImageSource="bg.png">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label x:Name="LabelLobby" Text="" />
-            <Entry x:Name="EntryUsername" Text="Username"></Entry>
-            <Button Text="Lobby öffnen" Clicked="Button_OnClicked"></Button>
-            <Label x:Name="LabelConnectedPlayers" Text=""></Label>
-            <Button Text="Spiel starten" Clicked="ButtonStart_OnClicked"></Button>
+            <Label x:Name="LabelLobby" Text="" FontSize="40" TextColor="White"/>
+            <Entry x:Name="EntryUsername" BackgroundColor="LightGray" TextColor="Black" Text="Entry Username"></Entry>
+            <Button Text="Lobby öffnen" Clicked="Button_OnClicked" TextColor="White"></Button>
+            <Label x:Name="LabelConnectedPlayers" Text="" TextColor="White"></Label>
+            <Button Text="Start Game" Clicked="ButtonStart_OnClicked" TextColor="White"></Button>
       </StackLayout>
   </ContentPage.Content>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -7,111 +8,114 @@
              BackgroundColor="black"
              x:Class="BlendIn.Game.HunterGameView">
     <ContentPage.Content>
-        <StackLayout Padding="60"
+        <StackLayout Padding="20"
                      BackgroundColor="black"
-                     VerticalOptions="CenterAndExpand" 
-                     HorizontalOptions="CenterAndExpand" >
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="CenterAndExpand">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>                
-                    <RowDefinition Height="1*"/>                
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-            <Label x:Name="oct_null" 
-                   Grid.Row="2"
-                   Grid.Column="2"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_null"
+                       Grid.Row="2"
+                       Grid.Column="2"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_eins"
-                   Grid.Row="3"
-                   Grid.Column="3"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_eins"
+                       Grid.Row="3"
+                       Grid.Column="3"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_zwei"
-                   Grid.Row="4"
-                   Grid.Column="3"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_zwei"
+                       Grid.Row="4"
+                       Grid.Column="3"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_drei"
-                   Grid.Row="5"
-                   Grid.Column="2"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_drei"
+                       Grid.Row="5"
+                       Grid.Column="2"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_vier"
-                   Grid.Row="5"
-                   Grid.Column="1"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_vier"
+                       Grid.Row="5"
+                       Grid.Column="1"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_fuenf"
-                   Grid.Row="4"
-                   Grid.Column="0"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
+                <Label x:Name="oct_fuenf"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_sechs"
-                   Grid.Row="3"
-                   Grid.Column="0"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-                
-            <Label x:Name="oct_sieben"
-                   Grid.Row="2"
-                   Grid.Column="1"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand" />
-               
-            <Button Grid.Row="6"
-                    Grid.Column="0" 
-                x:Name="ButtonStun"
-                Text="Stun" 
-                Clicked="Stun_Clicked"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="Gray"
-                TextColor="White"></Button>
-                
-            <Button Grid.Row="6"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                x:Name="ButtonCatch"
-                Text="Catch" 
-                Clicked="Catch_Clicked" 
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="Gray"
-                TextColor="White"></Button>
+                <Label x:Name="oct_sechs"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
+
+                <Label x:Name="oct_sieben"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
 
                 <Button Grid.Row="6"
-                    Grid.Column="3"  
-                    x:Name="ButtonExpose"
-                Text="Expose" 
-                Clicked="Expose_Clicked"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="Gray"
-                TextColor="White"></Button>
+                        Grid.Column="0"
+                        x:Name="ButtonStun"
+                        Text="Stun"
+                        Clicked="Stun_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
+
+                <Button Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        x:Name="ButtonCatch"
+                        Text="Catch"
+                        Clicked="Catch_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
+
+                <Button Grid.Row="6"
+                        Grid.Column="3"
+                        x:Name="ButtonExpose"
+                        Text="Expose"
+                        Clicked="Expose_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
+
+                <Label Grid.Row="7"
+                        Grid.ColumnSpan="4"
+                        x:Name="LabelDebug" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -4,10 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BlendIn.Game.TimerView">
+             x:Class="BlendIn.Game.TimerView"
+             BackgroundImageSource="bg.png">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="60">
             <Label x:Name="LabelInfo" Text=""
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
                    FontSize="60"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />

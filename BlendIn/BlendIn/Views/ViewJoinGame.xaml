@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="Black"
+             BackgroundImageSource="bg.png"
              x:Class="BlendIn.Views.ViewJoinGame">
     <ContentPage.Content>
         <StackLayout Padding="60"
@@ -15,7 +15,9 @@
                    VerticalOptions="CenterAndExpand" />
 
             <Entry x:Name="EntryUsername"
-                   BackgroundColor="LightGray"></Entry>
+                   BackgroundColor="LightGray"
+                   TextColor="Black"
+                   Text="Entry Username"></Entry>
 
             <Label Text="Game Code:" 
                 TextColor="White"
