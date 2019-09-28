@@ -124,6 +124,8 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
+                activePreyNr.Text = "" + GameLogic.Instance.ActivePrey;
+
                 Thread.Sleep(1000);
             }
         }
