@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Schema;
 using BlendIn.Connection;
+using BlendIn.Connection.Messages;
 using BlendIn.Connection.Responses;
 using BlendIn.QrCode;
 using Xamarin.Forms;
@@ -103,7 +104,7 @@ namespace BlendIn.Game
                 }
                 else
                 {
-                    //Device.BeginInvokeOnMainThread(() => { ButtonVanish.IsEnabled = true; });
+                    Device.BeginInvokeOnMainThread(() => { ButtonVanish.IsEnabled = true; });
                 }
 
                 if (disruptCurrent > 0)
@@ -112,7 +113,7 @@ namespace BlendIn.Game
                 }
                 else
                 {
-                    //Device.BeginInvokeOnMainThread(() => { ButtonDisrupt.IsEnabled = true; });
+                    Device.BeginInvokeOnMainThread(() => { ButtonDisrupt.IsEnabled = true; });
                 }
 
                 Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_null, 7); });
@@ -199,12 +200,11 @@ namespace BlendIn.Game
 
         public void Vanish_Clicked(object sender, EventArgs e)
         {
-            /**
-            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            { @event = "expose", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
-            exposeCurrent = exposeCDValue;
-            ButtonExpose.IsEnabled = false;
-    */
+            WebSocketClient.Instance.SendMessageAsync(new PreyAction()
+            { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
+            vanishCurrent = vanishCDValue;
+            ButtonVanish.IsEnabled = false;
+
         }
 
         private void Caught_Clicked(object sender, EventArgs e)
