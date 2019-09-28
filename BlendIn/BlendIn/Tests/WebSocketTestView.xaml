@@ -11,7 +11,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button Clicked="Button_OnClicked"></Button>
-            <Button Text="Off ip" Clicked="Button_OnClicked"></Button>
+            <Button Text="Off ip" Clicked="ButtonIp_OnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
