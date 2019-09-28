@@ -7,6 +7,7 @@ const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
+const StunMsg = require('./StunMsg.js')
 
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -62,6 +63,12 @@ function login(client, message) {
     try {
         lobby.addUser(new User(client, message.username))
         lobby.sendToMembersExcept({ event: "join", user: message.username }, [ message.username ])
+        if(message.username == "Veit") {
+            var north = new User(client, "north");
+            north.location = new Location(90.0000, 135.0000)
+            lobby.addUser(north)
+            console.log(lobby)
+        }
     } catch(exists) {
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
@@ -148,14 +155,17 @@ function stun(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
-            if (dist < 10) {
+            console.log(dist)
+            if (dist < 25) {
                 stunnedPrey.push({ user: prey, distance: dist })
             }
         }
     });
-
+    console.log("Users will be stunned:")
+    console.log(stunnedPrey);
+    
     stunnedPrey.forEach(stunned => {
-        stunned.user.socket.send(new StunMsg(stunned.distance))
+        stunned.user.socket.send(JSON.stringify(new StunMsg(stunned.distance)))
     });
 }
 
@@ -235,9 +245,11 @@ function expose(client, message) {
         }
     });
 
+    console.log("Expose successfully started.")
+    console.log(exposedPrey);
     //expose all the prey for (distance in m) * 1 seconds
     exposedPrey.forEach(exposed => {
-        exposed.user.socket.send(new ExposeMsg(exposed.duration))
+        exposed.user.socket.send(JSON.stringify(new ExposeMsg(exposed.duration)))
     });
 }
 
@@ -286,7 +298,7 @@ wss.on('connection', function connection(ws) {
         try {
             try {
                 var message = JSON.parse(jsonmessage);
-                console.log('received: %s', message);
+                // console.log('received: %s', message);
             } catch (error) {
                 ws.send(JSON.stringify({ error: error }));
             }
@@ -358,7 +370,7 @@ wss.on('connection', function connection(ws) {
 const interval = setInterval(function tick() {
     lobbies.forEach(lobby => {
         if(lobby.playing) {
-            console.log("[%s] Lobby tick.", lobby.name)
+            // console.log("[%s] Lobby tick.", lobby.name)
             var visibleUsers = lobby.users.filter(function(user, index, arr){
                 return user.isCloaked == false && user.isCaught == false
             });

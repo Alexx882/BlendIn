@@ -18,6 +18,7 @@ namespace BlendIn.Views
     {
         public ViewNewGame()
         {
+            BackgroundImage = "bg.png";
             // TODO Sound and Light optional settings
             InitializeComponent();
         }

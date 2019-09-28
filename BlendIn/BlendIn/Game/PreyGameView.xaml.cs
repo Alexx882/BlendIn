@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Xml.Schema;
+using BlendIn.Connection;
+using BlendIn.Connection.Responses;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +15,6 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-
         public double vanishCDValue = 20;
         public double diruptCDValue = 30;
 
@@ -22,9 +23,57 @@ namespace BlendIn.Game
 
         public PreyGameView()
         {
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
-            new Thread(() => PreyLoop()).Start();
 
+            WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
+
+            new Thread(() => PreyLoop()).Start();
+        }
+
+        private void HandleHunterAction(object obj)
+        {
+            var response = obj as HunterActionResponse;
+            if (response.@event == "stun")
+            {
+                Stun();
+            }
+            else if (response.@event == "expose")
+            {
+                new Thread(async () =>
+                {
+                    Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
+                    Thread.Sleep((response.duration ?? 0) * 1000);
+                    Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
+                }).Start();
+            }
+        }
+
+        private void Stun(int duration = 5)
+        {
+            new Thread(() => ToggleFlashlight(duration)).Start();
+            new Thread(() => PlaySound(duration)).Start();
+        }
+
+        private async Task ToggleFlashlight(int duration)
+        {
+            while (duration > 0)
+            {
+                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
+                Thread.Sleep(500);
+                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
+                Thread.Sleep(500);
+                duration--;
+            }
+        }
+
+        private async Task PlaySound(int duration)
+        {
+            SoundController sc = new SoundController();
+            sc.audio.Loop = true;
+            Device.BeginInvokeOnMainThread(() => sc.audio.Play());
+            Thread.Sleep(duration*1000);
+            Device.BeginInvokeOnMainThread(() => sc.audio.Stop());
         }
 
         private void PreyLoop()
@@ -48,7 +97,6 @@ namespace BlendIn.Game
                 else
                 {
                     //Device.BeginInvokeOnMainThread(() => { ButtonDisrupt.IsEnabled = true; });
-
                 }
 
                 //Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
@@ -82,7 +130,7 @@ namespace BlendIn.Game
         {
             /**
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            { @event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            { @event = "stun", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
             stunCurrent = stunCDValue;
             ButtonStun.IsEnabled = false;
     */
@@ -93,7 +141,7 @@ namespace BlendIn.Game
         {
             /**
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            { @event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            { @event = "expose", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
             exposeCurrent = exposeCDValue;
             ButtonExpose.IsEnabled = false;
     */
@@ -103,12 +151,12 @@ namespace BlendIn.Game
         {
             /**
             // todo barcode
-            var caught_user = "user";
+            var caught_user = "username";
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
             {
                 @event = "catch",
                 lobby = GameLogic.Instance.LobbyName,
-                user = GameLogic.Instance.SelfUserName,
+                username = GameLogic.Instance.SelfUserName,
                 caught = caught_user
             });
     */

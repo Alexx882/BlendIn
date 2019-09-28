@@ -5,11 +5,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             BackgroundColor="black"
+             BackgroundImageSource="gamebg.png"
              x:Class="BlendIn.Game.HunterGameView">
     <ContentPage.Content>
-        <StackLayout Padding="20"
-                     BackgroundColor="black"
+        <StackLayout Padding="20"                     
                      VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand">
             <Grid>
@@ -32,6 +31,7 @@
                 <Label x:Name="oct_null"
                        Grid.Row="2"
                        Grid.Column="2"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -39,6 +39,7 @@
                 <Label x:Name="oct_eins"
                        Grid.Row="3"
                        Grid.Column="3"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -46,6 +47,7 @@
                 <Label x:Name="oct_zwei"
                        Grid.Row="4"
                        Grid.Column="3"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -53,6 +55,7 @@
                 <Label x:Name="oct_drei"
                        Grid.Row="5"
                        Grid.Column="2"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -60,6 +63,7 @@
                 <Label x:Name="oct_vier"
                        Grid.Row="5"
                        Grid.Column="1"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -67,6 +71,7 @@
                 <Label x:Name="oct_fuenf"
                        Grid.Row="4"
                        Grid.Column="0"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -74,6 +79,7 @@
                 <Label x:Name="oct_sechs"
                        Grid.Row="3"
                        Grid.Column="0"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
@@ -81,12 +87,13 @@
                 <Label x:Name="oct_sieben"
                        Grid.Row="2"
                        Grid.Column="1"
+                       FontSize="30"
                        TextColor="White"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
                 <Button Grid.Row="6"
-                        Grid.Column="0"
+                        Grid.Column="0"                      
                         x:Name="ButtonStun"
                         Text="Stun"
                         Clicked="Stun_Clicked"

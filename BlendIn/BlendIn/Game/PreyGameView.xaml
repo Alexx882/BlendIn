@@ -4,11 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-              BackgroundColor="black"
+              BackgroundImageSource="gamebg.png"
              x:Class="BlendIn.Game.PreyGameView">
     <ContentPage.Content>
-        <StackLayout Padding="20"
-                     BackgroundColor="black"
+        <StackLayout Padding="20"                  
                      VerticalOptions="CenterAndExpand" 
                      HorizontalOptions="CenterAndExpand">
             <Grid>
