@@ -83,10 +83,20 @@ namespace BlendIn.Game
         {
             while (duration > 0)
             {
-                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    LabelStunned.IsVisible = true;
+                    Hardware.TryTurnOnFlashlight();
+                });
                 Thread.Sleep(500);
-                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    LabelStunned.IsVisible = false;
+                    Hardware.TryTurnOffFlashlight();
+                });
                 Thread.Sleep(500);
+
                 duration--;
             }
         }
