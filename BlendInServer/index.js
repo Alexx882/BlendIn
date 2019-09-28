@@ -110,7 +110,7 @@ function login(client, message) {
         console.error(exists)
         return;
     }    
-    console.log("[EVENT] " + message.username + "joined lobby: " +  lobby.name + " with " + lobby.users.length + "users: " + lobby.users.join(", "))
+    console.log("[EVENT] " + message.username + " joined lobby: " +  lobby.name + " with " + lobby.users.length + " users: " + lobby.users.join(", "))
     client.send(JSON.stringify({
         event: event,
         status: "success",
@@ -322,14 +322,11 @@ function cloak(client, message) {
     }
     console.log("[EVENT] Cloaked " + user.name)
     user.isCloaked = true;
-    delayUncloak(user)
-
-    // Server ticking
-    async function delayUncloak (usr) {
-        await timeout(cloakTime)
+  
+    setTimeout(function() {
         console.log("[EVENT] Uncloaked " + user.name)
-        usr.isCloaked = false;
-    }
+        user.isCloaked = false;
+    }, cloakTime);
 }
 
 wss.on('connection', function connection(ws) {
