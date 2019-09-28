@@ -18,12 +18,19 @@ namespace BlendIn
     public partial class MainPage : ContentPage
     {
         private GameLogic _gameLogic;
-     
+
         public MainPage()
         {
             BackgroundImage = "bg.png";
             InitializeComponent();
             _gameLogic = GameLogic.Instance;
+
+            GetPermissions();
+        }
+
+        private async void GetPermissions()
+        {
+            await Hardware.GetLocation();
         }
 
         private void ButtonStartGame_Clicked(object sender, EventArgs e)
@@ -41,13 +48,13 @@ namespace BlendIn
         private void ButtonGps_Clicked(object sender, EventArgs e)
         {
             var v = new GpsView();
-            ((App)App.Current).NavigationPage.PushAsync(v);
+            ((App) App.Current).NavigationPage.PushAsync(v);
         }
 
         private void ButtonQr_Clicked(object sender, EventArgs e)
         {
             var v = new QrTestView();
-            ((App)App.Current).NavigationPage.PushAsync(v);
+            ((App) App.Current).NavigationPage.PushAsync(v);
         }
 
         private void ButtonWebSocket_Clicked(object sender, EventArgs e)
@@ -58,8 +65,6 @@ namespace BlendIn
 
         private void Location_Test_Clicked(object sender, EventArgs e)
         {
-
-
             Location a = new Location(46.933502, 13.872430);
             Location b = new Location(46.933942, 13.872419);
             Location c = new Location(46.933649, 13.871893);
@@ -67,9 +72,12 @@ namespace BlendIn
             //double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
 
-            LocationDebugLabel1.Text = "AB Distance "+ Calculations.GetDistance(a, b) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(a,b,180);
-            LocationDebugLabel2.Text = "BC Distance " + Calculations.GetDistance(b, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(b, c,180);
-            LocationDebugLabel3.Text = "CA Distance " + Calculations.GetDistance(a, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(c, a, 180);
+            LocationDebugLabel1.Text = "AB Distance " + Calculations.GetDistance(a, b) + "m in Octant: " +
+                                       Calculations.GetOctantBetweenTwoPoints(a, b, 180);
+            LocationDebugLabel2.Text = "BC Distance " + Calculations.GetDistance(b, c) + "m in Octant: " +
+                                       Calculations.GetOctantBetweenTwoPoints(b, c, 180);
+            LocationDebugLabel3.Text = "CA Distance " + Calculations.GetDistance(a, c) + "m in Octant: " +
+                                       Calculations.GetOctantBetweenTwoPoints(c, a, 180);
 
 
             //SoundController sound = new SoundController();
