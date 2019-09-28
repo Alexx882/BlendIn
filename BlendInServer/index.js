@@ -66,6 +66,7 @@ function login(client, message) {
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
         ))
+        console.error(exists)
         return;
     }    
     console.log("Created new lobby:")
@@ -182,19 +183,20 @@ function catchPlayer(client, message) {
     }
     if (user.isHunter == false) {
         client.send(JSON.stringify(
-            new ErrorMsg(event, "User is not hunter and cannot use Stun")
+            new ErrorMsg(event, "User is not hunter and cannot use Catch")
         ))
         return;
     }
     
-    coughtPlayer = getUserInLobbyByName(lobby, message.cought)
-    if (user.isCought == true) {
+    caughtPlayer = getUserInLobbyByName(lobby, message.caught)
+    if (user.isCaught == true) {
         client.send(JSON.stringify(
-            new ErrorMsg(event, "User is already cought")
+            new ErrorMsg(event, "User is already caught")
         ))
         return;
     }
-    coughtPlayer.isCought = true;
+    caughtPlayer.socket.send({ event: event })
+    caughtPlayer.isCaught = true;
 }
 
 function expose(client, message) {
@@ -308,6 +310,9 @@ wss.on('connection', function connection(ws) {
                 case "catch":
                     catchPlayer(ws, message)
                     break;
+                case "cloak":
+                    cloak(ws, message)
+                    break;
                 default:
                     ws.send(JSON.stringify({ error: "Undefind event!" }));
                     break;
@@ -355,7 +360,7 @@ const interval = setInterval(function tick() {
         if(lobby.playing) {
             console.log("[%s] Lobby tick.", lobby.name)
             var visibleUsers = lobby.users.filter(function(user, index, arr){
-                return user.isCloaked == false
+                return user.isCloaked == false && user.isCaught == false
             });
 
             lobby.users.forEach(user => {
