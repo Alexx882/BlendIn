@@ -139,4 +139,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\sound.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cloak.wav" />
+  </ItemGroup>
 </Project>

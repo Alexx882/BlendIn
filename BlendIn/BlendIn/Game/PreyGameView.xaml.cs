@@ -17,7 +17,7 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-        public double vanishCDValue = 20;
+        public double vanishCDValue = 100;
         public double diruptCDValue = 30;
 
         public double vanishCurrent = 0;
@@ -222,6 +222,8 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
+            SoundController sc = new SoundController();
+            sc.audioCloak.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
 

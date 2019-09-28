@@ -10,11 +10,14 @@ namespace BlendIn.Game
     public class SoundController
     {
         public ISimpleAudioPlayer audio;
+        public ISimpleAudioPlayer audioCloak;
         public SoundController()
         {
             var assembly = typeof(App).GetTypeInfo().Assembly;
             audio = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+            audioCloak = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
             audio.Load("sound.wav");
+            audioCloak.Load("cloak.wav");
         }
 
 
