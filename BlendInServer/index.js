@@ -20,6 +20,7 @@ var lobbies = [];
 // IMPORTANT CONFIG:
 var tickrate = .5;
 var cloakTime = 10 * 1000 // in ms
+var stunDistance = 12 // in m
 
 const scale = (num, in_min, in_max, out_min, out_max) => {
     return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -168,7 +169,7 @@ function stun(client, message) {
             var dist = Calculations.distance(user.location, prey.location);
             
             console.log(dist)
-            if (dist < 25) {
+            if (dist < stunDistance) {
                 stunnedPrey.push({ user: prey, distance: dist })
             }
         }
