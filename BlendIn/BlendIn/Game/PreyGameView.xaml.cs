@@ -222,7 +222,7 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
-            //sc.audioCloak.Play();
+            sc.audio.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
         }
