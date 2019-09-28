@@ -297,7 +297,7 @@ function expose(client, message) {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
             dist = dist / 10;
-            dist = Math.max(0, Math.min(dist, 30))
+            dist = Math.max(5, Math.min(dist, 10))
             console.log("[INFO] Clamped stun duration: " + dist);
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
