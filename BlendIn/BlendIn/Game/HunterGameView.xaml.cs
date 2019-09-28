@@ -32,7 +32,7 @@ namespace BlendIn.Game
         public void Stun_Clicked(object sender, EventArgs e)
         {
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-                {@event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
+                {@event = "stun", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName});
             stunCurrent = stunCDValue;
             ButtonStun.IsEnabled = false;
         }
@@ -41,7 +41,7 @@ namespace BlendIn.Game
         public void Expose_Clicked(object sender, EventArgs e)
         {
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-                {@event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
+                {@event = "expose", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName});
             exposeCurrent = exposeCDValue;
             ButtonExpose.IsEnabled = false;
         }
@@ -49,10 +49,10 @@ namespace BlendIn.Game
         public void Catch_Clicked(object sender, EventArgs e)
         {
             // todo barcode
-            var caught_user = "user";
+            var caught_user = "username";
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
             {
-                @event = "catch", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName,
+                @event = "catch", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName,
                 caught = caught_user
             });
         }
