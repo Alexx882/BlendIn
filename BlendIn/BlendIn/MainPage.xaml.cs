@@ -44,13 +44,13 @@ namespace BlendIn
             var v = new FlashlightTestView();
             ((App) App.Current).NavigationPage.PushAsync(v);
         }
-
+        */
         private void ButtonGps_Clicked(object sender, EventArgs e)
         {
             var v = new GpsView();
             ((App) App.Current).NavigationPage.PushAsync(v);
         }
-
+        /*
         private void ButtonQr_Clicked(object sender, EventArgs e)
         {
             var v = new QrTestView();

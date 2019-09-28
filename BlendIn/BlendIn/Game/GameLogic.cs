@@ -41,6 +41,16 @@ namespace BlendIn.Game
             }
         }
 
+        /// <summary>
+        /// Initial cooldown for buttons.
+        /// </summary>
+        public static double InitialCooldown => 10;
+
+        /// <summary>
+        /// Time until the the roles are defined.
+        /// </summary>
+        public static int RunawayTime => 30;
+
         private GameLogic()
         {
             WebSocketClient.Instance.RegisterForMessage<TickResponse>(HandleTick);

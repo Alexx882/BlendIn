@@ -17,12 +17,12 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-        public double vanishCDValue = 100;
+        public double vanishCDValue = 10;
         public double diruptCDValue = 30;
         public SoundController sc = new SoundController();
 
-        public double vanishCurrent = 0;
-        public double disruptCurrent = 0;
+        public double vanishCurrent = GameLogic.InitialCooldown;
+        public double disruptCurrent = GameLogic.InitialCooldown;
 
         public PreyGameView()
         {
@@ -49,10 +49,6 @@ namespace BlendIn.Game
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await Navigation.PopAsync(); // gameview
-                await Navigation.PopAsync(); // timerview
-                await Navigation.PopAsync(); // matchmaking
-
                 await Navigation.PushAsync(new GameLostView());
             });
         }
@@ -78,7 +74,7 @@ namespace BlendIn.Game
         private void Stun(int duration = 5)
         {
             new Thread(() => ToggleFlashlight(duration)).Start();
-            new Thread(() => PlaySound(duration)).Start();
+            new Thread(() => PlayStunSound(duration)).Start();
         }
 
         private async Task ToggleFlashlight(int duration)
@@ -103,9 +99,9 @@ namespace BlendIn.Game
             }
         }
 
-        private async Task PlaySound(int duration)
+        private async Task PlayStunSound(int duration)
         {
-            sc.audio.Loop = true;
+            sc.loadStun();
             Device.BeginInvokeOnMainThread(() => sc.audio.Play());
             Thread.Sleep(duration*1000);
             Device.BeginInvokeOnMainThread(() => sc.audio.Stop());
@@ -147,7 +143,7 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
-                activePreyNr.Text = "" + GameLogic.Instance.ActivePrey;
+                Device.BeginInvokeOnMainThread(() => activePreyNr.Text = "" + GameLogic.Instance.ActivePrey);
 
                 Thread.Sleep(1000);
             }
@@ -222,10 +218,10 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
-            sc.audioCloak.Play();
+            sc.loadCloak();
+            sc.audio.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
-
         }
 
         private void Caught_Clicked(object sender, EventArgs e)

@@ -25,7 +25,7 @@ namespace BlendIn.Game
             _hunter_name = response.hunter_username;
             _game_start_time = response.starttime;
 
-            new Thread(() => TimerFunction(0)).Start();
+            new Thread(() => TimerFunction(GameLogic.RunawayTime)).Start();
         }
 
         private void TimerFunction(int remainingSeconds)

@@ -20,6 +20,11 @@
                 BackgroundColor="Gray"
                 TextColor="White"></Button>
 
+        <Button Text="GPS Bugfix" 
+                Clicked="ButtonGps_Clicked"
+                BackgroundColor="Gray"
+                TextColor="Red"></Button>
+
         <Label Text="Join Blend In!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
