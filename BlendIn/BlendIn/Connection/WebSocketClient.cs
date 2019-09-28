@@ -20,7 +20,7 @@ namespace BlendIn.Connection
         private CancellationTokenSource cts = new CancellationTokenSource();
 
         private static WebSocketClient _instance = null;
-
+        private bool _listening = true;
         public static WebSocketClient Instance
         {
             get
@@ -42,11 +42,18 @@ namespace BlendIn.Connection
 
             await Task.Factory.StartNew(async () =>
             {
-                while (true)
+                while (_listening)
                 {
                     await HandleIncomingMessages();
                 }
+
+                await client.CloseAsync(WebSocketCloseStatus.Empty, "", cts.Token);
             }, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+        }
+
+        public void Disconnect()
+        {
+            _listening = false;
         }
 
         private async Task HandleIncomingMessages()
