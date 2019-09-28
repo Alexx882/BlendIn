@@ -31,6 +31,7 @@ namespace BlendIn.Game
         {
             while (true)
             {
+                GameLogic.Instance.SendLocation();
                 if (vanishCurrent > 0)
                 {
                     vanishCurrent--;
