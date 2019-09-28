@@ -108,6 +108,12 @@ namespace BlendIn.Connection
                 if (_registeredCallbacks.ContainsKey(typeof(CaughtResponse)))
                     _registeredCallbacks[typeof(CaughtResponse)]?.Invoke(loginMsg);
             }
+            else if (baseMsg.@event == "end")
+            {
+                var loginMsg = JsonConvert.DeserializeObject<GameFinishedResponse>(message);
+                if (_registeredCallbacks.ContainsKey(typeof(GameFinishedResponse)))
+                    _registeredCallbacks[typeof(GameFinishedResponse)]?.Invoke(loginMsg);
+            }
         }
 
         private Dictionary<Type, Action<object>> _registeredCallbacks = new Dictionary<Type, Action<object>>();

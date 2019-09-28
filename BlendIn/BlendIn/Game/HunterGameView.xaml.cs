@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BlendIn.Connection;
 using BlendIn.Connection.Messages;
+using BlendIn.Connection.Responses;
 using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -27,7 +28,19 @@ namespace BlendIn.Game
         {
             BackgroundImage = "gamebg.png";
             InitializeComponent();
+
+            WebSocketClient.Instance.RegisterForMessage<GameFinishedResponse>(HandleGameFinished);
+
             new Thread(() => HunterLoop()).Start();
+        }
+
+        private void HandleGameFinished(object obj)
+        {
+            var response = obj as GameFinishedResponse;
+            if (response.winner == "Hunter")
+                Navigation.PushAsync(new GameWonView());
+            else
+                Navigation.PushAsync(new GameLostView());
         }
 
         public void Stun_Clicked(object sender, EventArgs e)
@@ -57,9 +70,15 @@ namespace BlendIn.Game
             });
         }
 
+        private bool _flashOn = false;
         public async void Flashlight_Clicked(object sender, EventArgs e)
         {
-            // turn on / off own flashlight
+            if (_flashOn)
+                await Hardware.TryTurnOffFlashlight();
+            else
+                await Hardware.TryTurnOnFlashlight();
+
+            _flashOn = !_flashOn;
         }
 
         private void HunterLoop()

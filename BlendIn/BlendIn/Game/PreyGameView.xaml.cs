@@ -30,8 +30,18 @@ namespace BlendIn.Game
 
             WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
             WebSocketClient.Instance.RegisterForMessage<CaughtResponse>(HandleCaught);
+            WebSocketClient.Instance.RegisterForMessage<GameFinishedResponse>(HandleGameFinished);
 
             new Thread(() => PreyLoop()).Start();
+        }
+
+        private void HandleGameFinished(object obj)
+        {
+            var response = obj as GameFinishedResponse;
+            if (response.winner == "Prey")
+                Navigation.PushAsync(new GameWonView());
+            else
+                Navigation.PushAsync(new GameLostView());
         }
 
         private void HandleCaught(object obj)
@@ -74,10 +84,20 @@ namespace BlendIn.Game
         {
             while (duration > 0)
             {
-                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    LabelStunned.IsVisible = true;
+                    Hardware.TryTurnOnFlashlight();
+                });
                 Thread.Sleep(500);
-                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    LabelStunned.IsVisible = false;
+                    Hardware.TryTurnOffFlashlight();
+                });
                 Thread.Sleep(500);
+
                 duration--;
             }
         }

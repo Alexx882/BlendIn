@@ -158,7 +158,7 @@
                     IsVisible="False"
                     Grid.RowSpan="5"
                     Grid.ColumnSpan="4" />
-                
+
                 <Button Grid.Row="7"
                         BackgroundColor="Gray"
                         HorizontalOptions="FillAndExpand"
@@ -167,6 +167,13 @@
                         x:Name="ButtonApproveCaught"
                         Grid.ColumnSpan="4"
                         TextColor="White" />
+
+                <Label
+                    x:Name="LabelStunned"
+                    BackgroundColor="Red"
+                    IsVisible="False"
+                    Grid.RowSpan="8"
+                    Grid.ColumnSpan="4" />
 
             </Grid>
         </StackLayout>
