@@ -80,14 +80,14 @@ namespace BlendIn.Game
                     Device.BeginInvokeOnMainThread(() => { ButtonStun.IsEnabled = true; });
                 }
 
-                Device.BeginInvokeOnMainThread(() => { oct_null.Text = "0 "+ GetOctantString(7); });
-                Device.BeginInvokeOnMainThread(() => { oct_eins.Text = "1 "+GetOctantString(6); });
-                Device.BeginInvokeOnMainThread(() => { oct_zwei.Text = "2 " +GetOctantString(5); });
-                Device.BeginInvokeOnMainThread(() => { oct_drei.Text = "3 "+GetOctantString(4); });
-                Device.BeginInvokeOnMainThread(() => { oct_vier.Text = "4 "+GetOctantString(3); });
-                Device.BeginInvokeOnMainThread(() => { oct_fuenf.Text = "5 " + GetOctantString(2); });
-                Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = "6 " + GetOctantString(1); });
-                Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = "7 " + GetOctantString(0); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_null, 7); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_eins, 6); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_zwei, 5); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_drei, 4); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_vier, 3); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_fuenf, 2); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_sechs, 1); });
+                Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_sieben, 0); });
 
                 PrintLocations();
 
@@ -108,15 +108,46 @@ namespace BlendIn.Game
             });
         }
 
-        private string GetOctantString(int octant)
+        private void PushOctantString(Label label, int octant)
         {
-            string s = "-";
-            for (int i = 0; i < GameLogic.Instance.GetAmountOfPlayersInOctant(octant); i++)
+            label.TextColor = Color.FromHex("#0BD904");
+            List<Player> playerList = GameLogic.Instance.GetListOfPlayersInOctant(octant);
+            int amount = playerList.Count;
+            int intensity = 0;
+            label.Text = "*";
+            foreach (Player player in playerList)
             {
-                s += "*";
+                double distance = Calculations.GetDistance(GameLogic.Instance.Self.Location, player.Location);
+                if (distance < 10)
+                {
+                    label.Text = "X";
+                    label.TextColor = Color.Red;
+                    intensity = 50;
+                }
+                else if(distance < 20)
+                {   
+                    intensity += 25;
+                }
+                else
+                {
+                    intensity += 15;
+                }
+               
+            }
+            if (intensity > 55)
+            {
+                label.FontSize = 55;
+            }
+            else
+            {
+                label.FontSize = intensity;
             }
 
-            return s;
+            if (amount<=0)
+            {
+                label.Text = "-";
+                label.FontSize = 20;
+            }
         }
     }
 }
