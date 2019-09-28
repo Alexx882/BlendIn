@@ -1,11 +1,13 @@
+const Location = require('./Location.js')
+
 class User {
     constructor(socket, name) {
         this.socket = socket;
         this.name = name;
         this.isHunter = false;
-        this.location = null;
+        this.location = new Location(null, null);
         this.connected = true;
-        this.isCought = false;
+        this.isCaught = false;
         this.isCloaked = false;
     }
 
