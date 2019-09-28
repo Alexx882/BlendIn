@@ -11,6 +11,9 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button Clicked="btnScan_Clicked"></Button>
+
+            <Image x:Name="ImageQr"></Image>
+            <Button Clicked="btnImg_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

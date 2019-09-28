@@ -8,6 +8,7 @@ using BlendIn.Connection;
 using BlendIn.Connection.Messages;
 using BlendIn.Connection.Responses;
 using BlendIn.Game;
+using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,6 +34,7 @@ namespace BlendIn.Views
             await WebSocketClient.Instance.SendMessageAsync(new LoginMessage(){ @event = "login", username = username});
 
             GameLogic.Instance.Self = new Player() { PlayerName = username };
+            QrCodeHelper.CreateQrCode(username);
         }
 
         private void HandleTimerResponse(object obj)
