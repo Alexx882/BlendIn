@@ -7,6 +7,7 @@ using BlendIn.Connection;
 using BlendIn.Connection.Messages;
 using BlendIn.Connection.Responses;
 using BlendIn.Game;
+using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,6 +38,7 @@ namespace BlendIn.Views
 
             GameLogic.Instance.Self = new Player(){PlayerName = username};
             GameLogic.Instance.LobbyName = joinGameCode;
+            QrCodeHelper.CreateQrCode(username);
         }
 
         private void HandleTimerResponse(object obj)

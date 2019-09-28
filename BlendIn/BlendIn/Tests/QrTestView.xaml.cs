@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -20,9 +20,14 @@ namespace BlendIn.Tests
 
         private async void btnScan_Clicked(object sender, EventArgs e)
         {
-            var res = await Hardware.ReadQrCode(this);
+            var res = await QrCodeHelper.ReadQrCode(this);
             LabelResult.Text = res.Text;
         }
-        
+
+        private async void btnImg_Clicked(object sender, EventArgs e)
+        {
+            await QrCodeHelper.CreateQrCode("test alex");
+            ImageQr.Source = QrCodeHelper.img;
+        }
     }
 }

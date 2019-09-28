@@ -24,5 +24,9 @@ namespace BlendIn.Tests
             WebSocketClient.Instance.ConnectToServerAsync();
         }
 
+        private void ButtonIp_OnClicked(object sender, EventArgs e)
+        {
+            WebSocketClient.ip = "104.248.134.91";
+        }
     }
 }

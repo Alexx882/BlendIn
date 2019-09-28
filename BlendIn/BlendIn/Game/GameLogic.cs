@@ -77,6 +77,32 @@ namespace BlendIn.Game
             }
             return amountOfPlayers;
         }
+
+        public List<Player> GetListOfPlayersInOctant(int octant)
+        {
+            List<Player> playerList = new List<Player>();
+            foreach (Player player in Players.Where(p => p.PlayerName != SelfUserName))
+            {
+                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) == octant)
+                {
+                    playerList.Add(player);
+                }
+            }
+            return playerList;
+        }
+
+        public List<Player> GetListOfHuntersInOctant(int octant)
+        {
+            List<Player> playerList = new List<Player>();
+            foreach (Player player in Players.Where(p => p.IsHunter ?? false))
+            {
+                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) == octant)
+                {
+                    playerList.Add(player);
+                }
+            }
+            return playerList;
+        }
         public double GetCompass()
         {
             return this._personalCompassDegrees;
