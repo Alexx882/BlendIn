@@ -24,7 +24,7 @@ namespace BlendIn.Game
             _hunter_name = response.hunter_username;
             _game_start_time = response.starttime;
 
-            new Thread(() => TimerFunction(10)).Start();
+            new Thread(() => TimerFunction(0)).Start();
         }
 
         private void TimerFunction(int remainingSeconds)
@@ -36,18 +36,18 @@ namespace BlendIn.Game
                 remainingSeconds--;
             }
 
-            WebSocketClient.Instance.IsHunter = WebSocketClient.Instance.UserName == _hunter_name;
-            if (WebSocketClient.Instance.IsHunter)
+            GameLogic.Instance.Self.IsHunter = GameLogic.Instance.SelfUserName == _hunter_name;
+            if (GameLogic.Instance.SelfIsHunter)
             {
                 Device.BeginInvokeOnMainThread(() => LabelInfo.Text = "You are the hunter");
                 Thread.Sleep(1000);
-                Navigation.PushAsync(new HunterGameView());
+                Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new HunterGameView()));
             }
             else
             {
                 Device.BeginInvokeOnMainThread(() => LabelInfo.Text = "You are prey");
                 Thread.Sleep(1000);
-                Navigation.PushAsync(new PreyGameView());
+                Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new PreyGameView()));
             }
         }
     }
