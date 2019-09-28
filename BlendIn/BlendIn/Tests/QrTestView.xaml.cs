@@ -26,7 +26,7 @@ namespace BlendIn.Tests
 
         private async void btnImg_Clicked(object sender, EventArgs e)
         {
-            await QrCodeHelper.CraeteQrCode("test alex");
+            await QrCodeHelper.CreateQrCode("test alex");
             ImageQr.Source = QrCodeHelper.img;
         }
     }
