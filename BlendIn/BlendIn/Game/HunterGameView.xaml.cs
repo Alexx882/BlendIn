@@ -59,6 +59,7 @@ namespace BlendIn.Game
         {
             while (true)
             {
+                GameLogic.Instance.SendLocation();
                 if (exposeCurrent > 0)
                 {
                     exposeCurrent--;
