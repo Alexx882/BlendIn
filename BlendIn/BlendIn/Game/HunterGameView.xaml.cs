@@ -57,6 +57,11 @@ namespace BlendIn.Game
             });
         }
 
+        public async void Flashlight_Clicked(object sender, EventArgs e)
+        {
+            // turn on / off own flashlight
+        }
+
         private void HunterLoop()
         {
             while (true)
