@@ -79,7 +79,7 @@ class Lobby {
         this._playing = true;
 
         var startTime = (new Date).getTime() + secondsToStart * 1000;
-        var hunter = this.users[0] //this.users[Math.floor(Math.random() * this.users.length)];
+        var hunter = this.users[Math.floor(Math.random() * this.users.length)];
         hunter.isHunter = true;
 
         var gamelength = this.users.length * 5 * 60;
@@ -101,7 +101,7 @@ class Lobby {
             });
             console.log("[INFO] Game over: "+ survivors + "/" + (that.users.length - 1) + " survived.");
             
-            if (survivors > Math.floor((that.users.length-1)/2)) {
+            if (survivors > Math.floor((that.users.length - 1)/2)) {
                 winner = "Prey"
             } else {
                 winner = "Hunter"
