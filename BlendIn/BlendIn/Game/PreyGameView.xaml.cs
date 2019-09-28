@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Schema;
 using BlendIn.Connection;
 using BlendIn.Connection.Responses;
+using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -160,6 +161,12 @@ namespace BlendIn.Game
                 caught = caught_user
             });
     */
+        }
+
+        private void Caught_Clicked(object sender, EventArgs e)
+        {
+            ImageQrCode.IsVisible = !ImageQrCode.IsVisible;
+            ImageQrCode.Source = QrCodeHelper.img;
         }
     }
 }
