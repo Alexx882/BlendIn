@@ -152,7 +152,7 @@ namespace BlendIn.Game
                 {
                     intensity += 15;
                 }
-                label.Text = GameLogic.Instance.Self.Location.Latitude +" "+ GameLogic.Instance.Self.Location.Longitude +" | "+ player.Location.Latitude + " "+ player.Location.Longitude + " |"+distance + "m";
+                label.Text = (int)GameLogic.Instance.Self.Location.Latitude +" "+ (int)GameLogic.Instance.Self.Location.Longitude +" | "+ (int)player.Location.Latitude + " "+ (int)player.Location.Longitude + " |"+(int)distance + "m";
             }
             if (intensity > 55)
             {
