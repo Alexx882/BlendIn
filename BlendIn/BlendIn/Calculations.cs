@@ -47,8 +47,8 @@ namespace BlendIn
             double a_loc = Math.Sin(delta_lat_rad / 2) * Math.Sin(delta_lat_rad / 2) + Math.Cos(lat_rad_a) * Math.Cos(lat_rad_b) * Math.Sin(delta_lon_rad / 2) * Math.Sin(delta_lon_rad / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a_loc), Math.Sqrt(1 - a_loc));
 
-            double v = r * c;
-            return v;
+            double d = (r * c);
+            return d;
         }
 
         public static double RadianToDegree(double angle)

@@ -57,6 +57,11 @@ namespace BlendIn.Game
             });
         }
 
+        public async void Flashlight_Clicked(object sender, EventArgs e)
+        {
+            // turn on / off own flashlight
+        }
+
         private void HunterLoop()
         {
             while (true)
@@ -91,7 +96,9 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
-                Thread.Sleep(1000);
+                activePreyNr.Text = ""+ GameLogic.Instance.ActivePrey;
+          
+               Thread.Sleep(1000);
             }
         }
 
@@ -102,7 +109,7 @@ namespace BlendIn.Game
                 LabelDebug.Text = "";
                 GameLogic.Instance.Players
                     .ForEach(p =>
-                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude}), ");
+                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude},{Calculations.GetDistance(GameLogic.Instance.Self.Location,p.Location)}, ");
                 LabelDebug.TextColor = Color.AntiqueWhite;
                 LabelDebug.Text += " "+GameLogic.Instance.GetCompass();
             });

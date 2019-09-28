@@ -124,6 +124,8 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
+                activePreyNr.Text = "" + GameLogic.Instance.ActivePrey;
+
                 Thread.Sleep(1000);
             }
         }
@@ -152,7 +154,7 @@ namespace BlendIn.Game
                 {
                     intensity += 15;
                 }
-
+                label.Text = (int)GameLogic.Instance.Self.Location.Latitude +" "+ (int)GameLogic.Instance.Self.Location.Longitude +" | "+ (int)player.Location.Latitude + " "+ (int)player.Location.Longitude + " |"+(int)distance + "m";
             }
             if (intensity > 55)
             {
@@ -200,21 +202,6 @@ namespace BlendIn.Game
             { @event = "expose", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
             exposeCurrent = exposeCDValue;
             ButtonExpose.IsEnabled = false;
-    */
-        }
-
-        public void Revive_Clicked(object sender, EventArgs e)
-        {
-            /**
-            // todo barcode
-            var caught_user = "username";
-            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            {
-                @event = "catch",
-                lobby = GameLogic.Instance.LobbyName,
-                username = GameLogic.Instance.SelfUserName,
-                caught = caught_user
-            });
     */
         }
 

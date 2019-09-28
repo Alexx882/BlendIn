@@ -18,7 +18,7 @@ namespace BlendIn.Views
     {
         public ViewJoinGame()
         {
-            BackgroundImage = "bg.png";
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
         }
 
