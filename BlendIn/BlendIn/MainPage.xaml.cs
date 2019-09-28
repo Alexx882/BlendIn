@@ -21,15 +21,7 @@ namespace BlendIn
         public MainPage()
         {
             InitializeComponent();
-            Hardware.registerCompass(AdjustCompassFunction);
-            Hardware.ToggleCompass();
             _gameLogic = GameLogic.Instance;
-        }
-
-        public double AdjustCompassFunction(double d)
-        {
-            _gameLogic.personalCompassDegrees = d;
-            return d;
         }
 
         private void ButtonStartGame_Clicked(object sender, EventArgs e)
@@ -72,11 +64,15 @@ namespace BlendIn
 
             //double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
+
             LocationDebugLabel1.Text = "AB Distance "+ Calculations.GetDistance(a, b) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(a,b,180);
             LocationDebugLabel2.Text = "BC Distance " + Calculations.GetDistance(b, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(b, c,180);
             LocationDebugLabel3.Text = "CA Distance " + Calculations.GetDistance(a, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(c, a, 180);
 
 
+            //SoundController sound = new SoundController();
+
+            // LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco, _gameLogic.personalCompassDegrees);
             //SoundController sound = new SoundController();
             //sound.audio.Loop = true;
             //sound.audio.Play();
