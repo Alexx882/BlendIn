@@ -46,6 +46,7 @@ namespace BlendIn.Views
             var response = obj as TimerResponse;
             Device.BeginInvokeOnMainThread(() =>
             {
+                GameLogic.Instance.GameLength = response.gamelength;
                 var v = new TimerView(response);
                 Navigation.PushAsync(v);
             });

@@ -67,6 +67,8 @@ namespace BlendIn.Game
             while (true)
             {
                 GameLogic.Instance.SendLocation();
+                GameLogic.Instance.GameLength--;
+                Device.BeginInvokeOnMainThread(() => { TimeLeft.Text = GameLogic.Instance.GameLength + "s"; });
                 if (exposeCurrent > 0)
                 {
                     exposeCurrent--;
@@ -84,7 +86,7 @@ namespace BlendIn.Game
                 {
                     Device.BeginInvokeOnMainThread(() => { ButtonStun.IsEnabled = true; });
                 }
-
+                
                 Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_null, 7); });
                 Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_eins, 6); });
                 Device.BeginInvokeOnMainThread(() => { PushOctantString(oct_zwei, 5); });
@@ -96,7 +98,8 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
-                activePreyNr.Text = ""+ GameLogic.Instance.ActivePrey;
+                Device.BeginInvokeOnMainThread(() => { activePreyNr.Text = "" + GameLogic.Instance.ActivePrey; });
+                
           
                Thread.Sleep(1000);
             }
