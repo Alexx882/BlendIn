@@ -30,41 +30,57 @@
                     <RowDefinition Height="1*"/>                
                 </Grid.RowDefinitions>
             <Label x:Name="oct_null" 
+                   Grid.Row="2"
+                   Grid.Column="2"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_eins" 
+            <Label x:Name="oct_eins"
+                   Grid.Row="3"
+                   Grid.Column="3"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_zwei" 
+            <Label x:Name="oct_zwei"
+                   Grid.Row="4"
+                   Grid.Column="3"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_drei" 
+            <Label x:Name="oct_drei"
+                   Grid.Row="5"
+                   Grid.Column="2"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_vier" 
+            <Label x:Name="oct_vier"
+                   Grid.Row="5"
+                   Grid.Column="1"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_fuenf" 
+            <Label x:Name="oct_fuenf"
+                   Grid.Row="4"
+                   Grid.Column="0"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
 
-            <Label x:Name="oct_sechs" 
+            <Label x:Name="oct_sechs"
+                   Grid.Row="3"
+                   Grid.Column="0"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
                 
-            <Label x:Name="oct_sieben" 
+            <Label x:Name="oct_sieben"
+                   Grid.Row="2"
+                   Grid.Column="1"
                    TextColor="White"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand" />
