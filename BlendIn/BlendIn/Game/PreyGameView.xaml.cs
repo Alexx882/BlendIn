@@ -17,12 +17,12 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-        public double vanishCDValue = 100;
+        public double vanishCDValue = 10;
         public double diruptCDValue = 30;
         public SoundController sc = new SoundController();
 
-        public double vanishCurrent = 0;
-        public double disruptCurrent = 0;
+        public double vanishCurrent = 20;
+        public double disruptCurrent = 20;
 
         public PreyGameView()
         {
@@ -222,10 +222,9 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
-            sc.audioCloak.Play();
+            //sc.audioCloak.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
-
         }
 
         private void Caught_Clicked(object sender, EventArgs e)

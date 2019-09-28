@@ -28,7 +28,7 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-              
+
                 <Label x:Name="oct_null"
                        Grid.Row="0"
                        Grid.Column="2"
@@ -124,7 +124,7 @@
                        HorizontalOptions="Center"
                        Text="00"
                        VerticalOptions="StartAndExpand" />
-                
+
                 <Button Grid.Row="6"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
@@ -133,7 +133,8 @@
                         Clicked="Disrupt_Clicked"
                         HorizontalOptions="FillAndExpand"
                         BackgroundColor="Gray"
-                        TextColor="White" />
+                        TextColor="White"
+                        IsVisible="False"/>
 
                 <Button Grid.Row="6"
                         Grid.Column="2"
