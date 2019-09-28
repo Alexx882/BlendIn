@@ -9,7 +9,7 @@
              BackgroundImageSource="bg.png">
 
     <StackLayout Padding="60"
-                 VerticalOptions="Center">
+                 VerticalOptions="EndAndExpand">
         <Button Text="New Game" 
                 Clicked="NewGame_Clicked"
                 BorderColor="White"
