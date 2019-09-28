@@ -1,4 +1,5 @@
 class Calculations {
+    
     /**
      * Calculates the distance between two locations
      * @param {double} lat1
@@ -6,12 +7,17 @@ class Calculations {
      * @param {double} lat2
      * @param {double} lon2
      */
-    static distance(lat1, lon1, lat2, lon2) {
+    static distanceLatLong(lat1, lon1, lat2, lon2) {
+        function degrees_to_radians(degrees)
+        {
+            var pi = Math.PI;
+            return degrees * (pi/180);
+        }
         var R = 6371e3; // metres
-        var φ1 = lat1.toRadians();
-        var φ2 = lat2.toRadians();
-        var Δφ = (lat2-lat1).toRadians();
-        var Δλ = (lon2-lon1).toRadians();
+        var φ1 = degrees_to_radians(lat1);
+        var φ2 = degrees_to_radians(lat2);
+        var Δφ = degrees_to_radians(lat2-lat1);
+        var Δλ = degrees_to_radians(lon2-lon1);
 
         var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
             Math.cos(φ1) * Math.cos(φ2) *
@@ -23,6 +29,7 @@ class Calculations {
     }
 
     static distance(loc1, loc2) {
-        return this.distance(loc1.lat, loc1.long, loc2.lat, loc2.long)
+        return this.distanceLatLong(loc1.lat, loc1.long, loc2.lat, loc2.long)
     }
-}
+} 
+module.exports = Calculations;

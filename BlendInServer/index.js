@@ -62,6 +62,12 @@ function login(client, message) {
     try {
         lobby.addUser(new User(client, message.username))
         lobby.sendToMembersExcept({ event: "join", user: message.username }, [ message.username ])
+        if(message.username == "Veit") {
+            var north = new User(client, "north");
+            north.location = new Location(90.0000, 135.0000)
+            lobby.addUser(north)
+            console.log(lobby)
+        }
     } catch(exists) {
         client.send(JSON.stringify(
             new ErrorMsg(event, exists)
@@ -153,9 +159,11 @@ function stun(client, message) {
             }
         }
     });
-
+    console.log("Users will be stunned:")
+    console.log(stunnedPrey);
+    
     stunnedPrey.forEach(stunned => {
-        stunned.user.socket.send(new StunMsg(stunned.distance))
+        stunned.user.socket.send(JSON.stringify(new StunMsg(stunned.distance)))
     });
 }
 
@@ -235,9 +243,11 @@ function expose(client, message) {
         }
     });
 
+    console.log("Expose successfully started.")
+    console.log(exposedPrey);
     //expose all the prey for (distance in m) * 1 seconds
     exposedPrey.forEach(exposed => {
-        exposed.user.socket.send(new ExposeMsg(exposed.duration))
+        exposed.user.socket.send(JSON.stringify(new ExposeMsg(exposed.duration)))
     });
 }
 
