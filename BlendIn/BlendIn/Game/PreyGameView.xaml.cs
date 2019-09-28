@@ -29,8 +29,18 @@ namespace BlendIn.Game
 
             WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
             WebSocketClient.Instance.RegisterForMessage<CaughtResponse>(HandleCaught);
+            WebSocketClient.Instance.RegisterForMessage<GameFinishedResponse>(HandleGameFinished);
 
             new Thread(() => PreyLoop()).Start();
+        }
+
+        private void HandleGameFinished(object obj)
+        {
+            var response = obj as GameFinishedResponse;
+            if (response.winner == "Prey")
+                Navigation.PushAsync(new GameWonView());
+            else
+                Navigation.PushAsync(new GameLostView());
         }
 
         private void HandleCaught(object obj)
