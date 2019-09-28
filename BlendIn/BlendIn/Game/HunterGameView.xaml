@@ -32,7 +32,7 @@
                        Grid.Row="2"
                        Grid.Column="2"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -40,7 +40,7 @@
                        Grid.Row="3"
                        Grid.Column="3"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -48,7 +48,7 @@
                        Grid.Row="4"
                        Grid.Column="3"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -56,7 +56,7 @@
                        Grid.Row="5"
                        Grid.Column="2"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -64,7 +64,7 @@
                        Grid.Row="5"
                        Grid.Column="1"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -72,7 +72,7 @@
                        Grid.Row="4"
                        Grid.Column="0"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -80,7 +80,7 @@
                        Grid.Row="3"
                        Grid.Column="0"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
@@ -88,7 +88,7 @@
                        Grid.Row="2"
                        Grid.Column="1"
                        FontSize="30"
-                       TextColor="White"
+                       TextColor="#0BD904"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand" />
 
