@@ -158,7 +158,7 @@ namespace BlendIn.Game
             label.TextColor = Color.FromHex("#0BD904");
             List<Player> playerList = GameLogic.Instance.GetListOfHuntersInOctant(octant);
             int amount = playerList.Count;
-            int intensity = 0;
+            int intensity = 1;
             label.Text = "*";
             foreach (Player player in playerList)
             {
@@ -177,7 +177,7 @@ namespace BlendIn.Game
                 {
                     intensity += 15;
                 }
-                label.Text = (int)GameLogic.Instance.Self.Location.Latitude +" "+ (int)GameLogic.Instance.Self.Location.Longitude +" | "+ (int)player.Location.Latitude + " "+ (int)player.Location.Longitude + " |"+(int)distance + "m";
+                label.Text = (int)distance + "m";
             }
             if (intensity > 55)
             {

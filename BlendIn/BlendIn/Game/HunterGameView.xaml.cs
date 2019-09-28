@@ -142,7 +142,7 @@ namespace BlendIn.Game
             label.TextColor = Color.FromHex("#0BD904");
             List<Player> playerList = GameLogic.Instance.GetListOfPlayersInOctant(octant);
             int amount = playerList.Count;
-            int intensity = 0;
+            int intensity = 1;
             label.Text = "*";
             foreach (Player player in playerList)
             {
