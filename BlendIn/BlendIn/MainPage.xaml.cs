@@ -25,7 +25,7 @@ namespace BlendIn
             InitializeComponent();
             _gameLogic = GameLogic.Instance;
         }
-
+        /*
         private void ButtonStartGame_Clicked(object sender, EventArgs e)
         {
             HunterGameView v = new HunterGameView();
@@ -56,6 +56,7 @@ namespace BlendIn
             Navigation.PushAsync(v);
         }
 
+        
         private void Location_Test_Clicked(object sender, EventArgs e)
         {
 
@@ -81,6 +82,7 @@ namespace BlendIn
             //HunterGameView v = new HunterGameView();
             //Navigation.PushAsync(v);
         }
+        */
 
         private void JoinGame_Clicked(object sender, EventArgs e)
         {

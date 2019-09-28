@@ -23,16 +23,6 @@
         <Label Text="Join Blend In!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-        <Label x:Name ="Debuglabel" Text="This is underlined text." TextDecorations="Underline"/>
-        <Label x:Name ="LocationDebugLabel1" TextColor="White" Text="This is underlined text." TextDecorations="Underline"/>
-        <Label x:Name ="LocationDebugLabel2" TextColor="White" Text="This is underlined text." TextDecorations="Underline"/>
-        <Label x:Name ="LocationDebugLabel3" TextColor="White" Text="This is underlined text." TextDecorations="Underline"/>
-        <Button Text="Start Game" Clicked="ButtonStartGame_Clicked"></Button>
-        <Button Text="Flashlight Test" Clicked="ButtonFlashlight_Clicked"></Button>
-        <Button Text="GPS Test" Clicked="ButtonGps_Clicked"></Button>
-        <Button Text="Qr Test" Clicked="ButtonQr_Clicked"></Button>
-        <Button Text="WebSocket Test" Clicked="ButtonWebSocket_Clicked"></Button>
-        <Button Text="Location Test" Clicked="Location_Test_Clicked"></Button>
     </StackLayout>
 
 </ContentPage>
