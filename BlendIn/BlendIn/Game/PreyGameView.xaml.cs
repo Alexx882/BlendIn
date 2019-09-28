@@ -19,6 +19,7 @@ namespace BlendIn.Game
     {
         public double vanishCDValue = 100;
         public double diruptCDValue = 30;
+        public SoundController sc = new SoundController();
 
         public double vanishCurrent = 0;
         public double disruptCurrent = 0;
@@ -104,7 +105,6 @@ namespace BlendIn.Game
 
         private async Task PlaySound(int duration)
         {
-            SoundController sc = new SoundController();
             sc.audio.Loop = true;
             Device.BeginInvokeOnMainThread(() => sc.audio.Play());
             Thread.Sleep(duration*1000);
@@ -222,7 +222,6 @@ namespace BlendIn.Game
         {
             WebSocketClient.Instance.SendMessageAsync(new PreyAction()
             { @event = "cloak", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
-            SoundController sc = new SoundController();
             sc.audioCloak.Play();
             vanishCurrent = vanishCDValue;
             ButtonVanish.IsEnabled = false;
