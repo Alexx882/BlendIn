@@ -96,7 +96,9 @@ namespace BlendIn.Game
 
                 PrintLocations();
 
-                Thread.Sleep(1000);
+                activePreyNr.Text = ""+ GameLogic.Instance.ActivePrey;
+          
+               Thread.Sleep(1000);
             }
         }
 
