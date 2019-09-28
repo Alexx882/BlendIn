@@ -6,10 +6,9 @@
              mc:Ignorable="d"           
              x:Class="BlendIn.MainPage"
              Title="Hunter and Prey"        
-             BackgroundColor="Black">
+             BackgroundImageSource="bg.png">
 
-    <StackLayout BackgroundColor="Black"
-                 Padding="60"
+    <StackLayout Padding="60"
                  VerticalOptions="Center">
         <Button Text="New Game" 
                 Clicked="NewGame_Clicked"

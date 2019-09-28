@@ -18,8 +18,10 @@ namespace BlendIn
     public partial class MainPage : ContentPage
     {
         private GameLogic _gameLogic;
+     
         public MainPage()
         {
+            BackgroundImage = "bg.png";
             InitializeComponent();
             _gameLogic = GameLogic.Instance;
         }
