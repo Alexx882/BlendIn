@@ -22,6 +22,7 @@ namespace BlendIn.Game
 
         public PreyGameView()
         {
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
             new Thread(() => PreyLoop()).Start();
 

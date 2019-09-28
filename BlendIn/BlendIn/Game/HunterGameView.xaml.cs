@@ -24,6 +24,7 @@ namespace BlendIn.Game
 
         public HunterGameView()
         {
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
             new Thread(() => HunterLoop()).Start();
         }
