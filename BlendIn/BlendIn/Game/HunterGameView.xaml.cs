@@ -102,7 +102,7 @@ namespace BlendIn.Game
                 LabelDebug.Text = "";
                 GameLogic.Instance.Players
                     .ForEach(p =>
-                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude}), ");
+                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude},{Calculations.GetDistance(GameLogic.Instance.Self.Location,p.Location)}, ");
                 LabelDebug.TextColor = Color.AntiqueWhite;
                 LabelDebug.Text += " "+GameLogic.Instance.GetCompass();
             });
