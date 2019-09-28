@@ -9,11 +9,17 @@ const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
 const StunMsg = require('./StunMsg.js')
 
-const wss = new WebSocket.Server({ port: 8080 });
+const port = 8080;
+const wss = new WebSocket.Server({ port: port });
+console.log(".-. .-\')               (\'-.       .-\') _  _ .-\') _                      .-\') _  \r\n\\  ( OO )            _(  OO)     ( OO ) )( (  OO) )                    ( OO ) ) \r\n ;-----.\\  ,--.     (,------.,--.\/ ,--,\'  \\     .\'_         ,-.-\') ,--.\/ ,--,\'  \r\n | .-.  |  |  |.-\')  |  .---\'|   \\ |  |\\  ,`\'--..._)        |  |OO)|   \\ |  |\\  \r\n | \'-\' \/_) |  | OO ) |  |    |    \\|  | ) |  |  \\  \'        |  |  \\|    \\|  | ) \r\n | .-. `.  |  |`-\' |(|  \'--. |  .     |\/  |  |   \' |        |  |(_\/|  .     |\/  \r\n | |  \\  |(|  \'---.\' |  .--\' |  |\\    |   |  |   \/ :       ,|  |_.\'|  |\\    |   \r\n | \'--\'  \/ |      |  |  `---.|  | \\   |   |  \'--\'  \/      (_|  |   |  | \\   |   \r\n `------\'  `------\'  `------\'`--\'  `--\'   `-------\'         `--\'   `--\'  `--\'   ")
+console.log("Blend In Server running on port " + port)
 
 // TODO maybe redis?
 var lobbies = [];
+
+// IMPORTANT CONFIG:
 var tickrate = .5;
+var cloakTime = 10 * 1000 // in ms
 
 const scale = (num, in_min, in_max, out_min, out_max) => {
     return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -125,6 +131,7 @@ function start(client, message) {
         return;
     }
     lobby.start(15);
+    console.log("[EVENT] Started lobby " + lobby.name)
 }
 
 function stun(client, message) {
@@ -203,13 +210,14 @@ function catchPlayer(client, message) {
         return;
     }
     
-    caughtPlayer = getUserInLobbyByName(lobby, message.caught)
+    var caughtPlayer = getUserInLobbyByName(lobby, message.caught)
     if (user.isCaught == true) {
         client.send(JSON.stringify(
             new ErrorMsg(event, "User is already caught")
         ))
         return;
     }
+    console.log("[EVENT] " + caughtPlayer.name +  " got cought!")
     caughtPlayer.socket.send({ event: event })
     caughtPlayer.isCaught = true;
 }
@@ -248,6 +256,7 @@ function expose(client, message) {
             var dist = Calculations.distance(user.location, prey.location);
             dist = Math.max(dist, 200)
             dist = scale(dist, 0, 200, 0, 30)
+            console.log("clamped: " + dist);
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
     });
@@ -289,13 +298,14 @@ function cloak(client, message) {
         ))
         return;
     }
-    
+    console.log("[EVENT] Cloaked " + user.name)
     user.isCloaked = true;
     delayUncloak(user)
 
     // Server ticking
     async function delayUncloak (usr) {
-        await timeout(5000)
+        await timeout(cloakTime)
+        console.log("[EVENT] *Uncloaked* " + user.name)
         usr.isCloaked = false;
     }
 }
