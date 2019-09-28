@@ -62,6 +62,7 @@ function login(client, message) {
     if (message.lobby == null) {
         lobby = new Lobby();
         lobbies.push(lobby);
+        console.log("[EVENT] Created new lobby: " +  lobby.name)
     } else {
         lobby = getLobbyByName(message.lobby)
         if (lobby == null) {
@@ -87,8 +88,7 @@ function login(client, message) {
         console.error(exists)
         return;
     }    
-    console.log("Created new lobby:")
-    console.log(lobby)
+    console.log("[EVENT] " + message.username + "joined lobby: " +  lobby.name + " with " + lobby.users.length + "users: " + lobby.users.join(", "))
     client.send(JSON.stringify({
         event: event,
         status: "success",
@@ -174,8 +174,7 @@ function stun(client, message) {
             }
         }
     });
-    console.log("Users will be stunned:")
-    console.log(stunnedPrey);
+    console.log("[EVENT] Hunter used stun; affected prey: " + stunnedPrey.join(", "))
     
     stunnedPrey.forEach(stunned => {
         stunned.user.socket.send(JSON.stringify(new StunMsg(stunned.distance)))
@@ -262,7 +261,7 @@ function expose(client, message) {
         }
     });
 
-    console.log("[EVENT] Expose successfully started.")
+    console.log("[EVENT] Expose successfully started")
     console.log(exposedPrey);
 
     //expose all the prey for (distance in m) * 1 seconds
@@ -306,7 +305,7 @@ function cloak(client, message) {
     // Server ticking
     async function delayUncloak (usr) {
         await timeout(cloakTime)
-        console.log("[EVENT] *Uncloaked* " + user.name)
+        console.log("[EVENT] Uncloaked " + user.name)
         usr.isCloaked = false;
     }
 }
