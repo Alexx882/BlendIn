@@ -21,8 +21,8 @@ namespace BlendIn.Game
         public double diruptCDValue = 30;
         public SoundController sc = new SoundController();
 
-        public double vanishCurrent = 20;
-        public double disruptCurrent = 20;
+        public double vanishCurrent = GameLogic.InitialCooldown;
+        public double disruptCurrent = GameLogic.InitialCooldown;
 
         public PreyGameView()
         {
