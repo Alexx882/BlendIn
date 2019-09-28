@@ -49,10 +49,6 @@ namespace BlendIn.Game
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await Navigation.PopAsync(); // gameview
-                await Navigation.PopAsync(); // timerview
-                await Navigation.PopAsync(); // matchmaking
-
                 await Navigation.PushAsync(new GameLostView());
             });
         }

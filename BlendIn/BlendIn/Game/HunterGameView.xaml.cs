@@ -20,8 +20,8 @@ namespace BlendIn.Game
         public double exposeCDValue = 20;
         public double stunCDValue = 30;
 
-        public double exposeCurrent = 0;
-        public double stunCurrent = 0;
+        public double exposeCurrent = 20;
+        public double stunCurrent = 20;
 
 
         public HunterGameView()
