@@ -17,7 +17,7 @@
             <Entry x:Name="EntryUsername"
                    BackgroundColor="LightGray"
                    TextColor="Black"
-                   Text="Entry Username"></Entry>
+                   Text="Enter Username"></Entry>
 
             <Label Text="Game Code:" 
                 TextColor="White"
