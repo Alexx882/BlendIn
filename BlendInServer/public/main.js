@@ -4,10 +4,10 @@ var markerLayer = L.layerGroup().addTo(mymap);
 var markers = [];
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	id: 'mapbox.streets',
-	accessToken: 'pk.eyJ1IjoidzNkMyIsImEiOiJjazEzbXd1YmkwYTk4M2lxamF0cWM5OTRnIn0.LiiKjNkzvWQBCLWBkDtqhQ'
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoidzNkMyIsImEiOiJjazEzbXd1YmkwYTk4M2lxamF0cWM5OTRnIn0.LiiKjNkzvWQBCLWBkDtqhQ'
 }).addTo(mymap);
 
 
@@ -18,41 +18,41 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 // 	fillOpacity: 0.5,
 // 	radius: 500
 // }).addTo(mymap);
-
-var server = new WebSocket("ws://localhost:8080/");
-server.onopen = function (event) {
-    server.send(JSON.stringify({event: "login", observe: true}));
-};
-
-server.onmessage = function (event) {
-    data = JSON.parse(event.data);
-    //console.log(data);
+function start() {
     
     
+    var url = document.getElementById("url").value;
+    console.log("connecting to " + url);
+    var server = new WebSocket("ws://"+ url +"/");
+    server.onopen = function (event) {
+        server.send(JSON.stringify({ event: "login", observe: true }));
+    };
 
-    if(data.userlist == null) return;
-
-    markers = [];
-    markerLayer.clearLayers();
-    
-    data.userlist.forEach(user => {
-        console.log(user);
-    
-
-        //mymap.setView([user.lat, user.long], 13);
-        // var circle = L.circle([user.lat,user.long], {
-        //     color: 'red',
-        //     fillColor: '#f03',
-        //     fillOpacity: 0.5,
-        //     radius: 10
-        // }).addTo(markerLayer);
+    server.onmessage = function (event) {
+        data = JSON.parse(event.data);
         
-        var marker = L.marker([user.lat,user.long]).addTo(markerLayer);
-        marker.bindPopup("Username: " + user.name);
-        markers.push(marker);
-    });
-    
+        if (data.userlist == null) return;
 
+        markers = [];
+        markerLayer.clearLayers();
+
+        data.userlist.forEach(user => {
+            console.log(user);
+
+
+            //mymap.setView([user.lat, user.long], 13);
+            // var circle = L.circle([user.lat,user.long], {
+            //     color: 'red',
+            //     fillColor: '#f03',
+            //     fillOpacity: 0.5,
+            //     radius: 10
+            // }).addTo(markerLayer);
+
+            var marker = L.marker([user.lat, user.long]).addTo(markerLayer);
+            marker.bindPopup("Username: " + user.name);
+            markers.push(marker);
+        });
+    }
 }
 
 function center() {
