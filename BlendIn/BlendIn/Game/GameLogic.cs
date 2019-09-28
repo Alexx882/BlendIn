@@ -49,7 +49,7 @@ namespace BlendIn.Game
         /// <summary>
         /// Time until the the roles are defined.
         /// </summary>
-        public static int RunawayTime => 30;
+        public static int RunawayTime => 0; // todo
 
         private GameLogic()
         {

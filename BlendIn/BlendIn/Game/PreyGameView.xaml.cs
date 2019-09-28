@@ -17,7 +17,7 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-        public double vanishCDValue = 10;
+        public double vanishCDValue = 100;
         public double diruptCDValue = 30;
         public SoundController sc = new SoundController();
 
