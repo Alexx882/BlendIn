@@ -29,6 +29,15 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
+
+                <Label x:Name="LabelDebug"
+                        Grid.Row="7"
+                    Grid.ColumnSpan="4"
+                   Grid.Column="0"
+                        TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"/>
+
                 <Label x:Name="oct_null" 
                    Grid.Row="2"
                    Grid.Column="2"
@@ -87,9 +96,9 @@
 
                 <Button Grid.Row="6"
                     Grid.Column="0" 
-                x:Name="ButtonStun"
-                Text="Stun" 
-                Clicked="Stun_Clicked"
+                x:Name="ButtonDisrupt"
+                Text="Disrupt" 
+                Clicked="Disrupt_Clicked"
                 HorizontalOptions="FillAndExpand"
                 BackgroundColor="Gray"
                 TextColor="White"></Button>
@@ -97,18 +106,18 @@
                 <Button Grid.Row="6"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
-                x:Name="ButtonCatch"
-                Text="Catch" 
-                Clicked="Catch_Clicked" 
+                x:Name="ButtonVanish"
+                Text="Vanish" 
+                Clicked="Vanish_Clicked" 
                 HorizontalOptions="FillAndExpand"
                 BackgroundColor="Gray"
                 TextColor="White"></Button>
 
                 <Button Grid.Row="6"
                     Grid.Column="3"  
-                    x:Name="ButtonExpose"
-                Text="Expose" 
-                Clicked="Expose_Clicked"
+                    x:Name="ButtonRevive"
+                Text="Revive" 
+                Clicked="Revive_Clicked"
                 HorizontalOptions="FillAndExpand"
                 BackgroundColor="Gray"
                 TextColor="White"></Button>

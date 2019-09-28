@@ -60,9 +60,58 @@ namespace BlendIn.Game
                 //Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = GetOctantString(6); });
                 //Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = GetOctantString(7); });
 
+                PrintLocations();
 
                 Thread.Sleep(1000);
             }
+        }
+
+        private void PrintLocations()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                LabelDebug.Text = "";
+                GameLogic.Instance.Players
+                    .ForEach(p =>
+                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude}), ");
+                LabelDebug.TextColor = Color.AntiqueWhite;
+            });
+        }
+
+        public void Disrupt_Clicked(object sender, EventArgs e)
+        {
+            /**
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+            { @event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            stunCurrent = stunCDValue;
+            ButtonStun.IsEnabled = false;
+    */
+        }
+
+
+        public void Vanish_Clicked(object sender, EventArgs e)
+        {
+            /**
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+            { @event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            exposeCurrent = exposeCDValue;
+            ButtonExpose.IsEnabled = false;
+    */
+        }
+
+        public void Revive_Clicked(object sender, EventArgs e)
+        {
+            /**
+            // todo barcode
+            var caught_user = "user";
+            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+            {
+                @event = "catch",
+                lobby = GameLogic.Instance.LobbyName,
+                user = GameLogic.Instance.SelfUserName,
+                caught = caught_user
+            });
+    */
         }
     }
 }
