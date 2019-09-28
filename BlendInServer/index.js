@@ -8,14 +8,31 @@ const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
 const StunMsg = require('./StunMsg.js')
+const EndMsg = require('./EndMsg.js')
+const express = require('express');
+const path = require('path');
+const { createServer } = require('http');
 
 const port = 8080;
-const wss = new WebSocket.Server({ port: port });
+
+// Observer debug server:
+
+const app = express();
+app.use(express.static(path.join(__dirname, '/public')));
+
+const server = createServer(app);
+server.listen(port, function() {
+    console.log('Listening on http://localhost:8080');
+});
+
+
 console.log(".-. .-\')               (\'-.       .-\') _  _ .-\') _                      .-\') _  \r\n\\  ( OO )            _(  OO)     ( OO ) )( (  OO) )                    ( OO ) ) \r\n ;-----.\\  ,--.     (,------.,--.\/ ,--,\'  \\     .\'_         ,-.-\') ,--.\/ ,--,\'  \r\n | .-.  |  |  |.-\')  |  .---\'|   \\ |  |\\  ,`\'--..._)        |  |OO)|   \\ |  |\\  \r\n | \'-\' \/_) |  | OO ) |  |    |    \\|  | ) |  |  \\  \'        |  |  \\|    \\|  | ) \r\n | .-. `.  |  |`-\' |(|  \'--. |  .     |\/  |  |   \' |        |  |(_\/|  .     |\/  \r\n | |  \\  |(|  \'---.\' |  .--\' |  |\\    |   |  |   \/ :       ,|  |_.\'|  |\\    |   \r\n | \'--\'  \/ |      |  |  `---.|  | \\   |   |  \'--\'  \/      (_|  |   |  | \\   |   \r\n `------\'  `------\'  `------\'`--\'  `--\'   `-------\'         `--\'   `--\'  `--\'   ")
-console.log("Blend In Server running on port " + port)
+
+const wss = new WebSocket.Server({ server });
 
 // TODO maybe redis?
 var lobbies = [];
+var observer = null;
 
 // IMPORTANT CONFIG:
 var tickrate = .5;
@@ -58,10 +75,17 @@ function getUserInLobbyByName(lobby, username) {
  */
 function login(client, message) {
     var event = "login"
+    if(message.observe == true) {
+        observer = client;
+        console.log("[DEBUG] Observer was set!!!");
+        
+        return;
+    }
     var lobby;
     if (message.lobby == null) {
         lobby = new Lobby();
         lobbies.push(lobby);
+        console.log("[EVENT] Created new lobby: " +  lobby.name)
     } else {
         lobby = getLobbyByName(message.lobby)
         if (lobby == null) {
@@ -87,8 +111,7 @@ function login(client, message) {
         console.error(exists)
         return;
     }    
-    console.log("Created new lobby:")
-    console.log(lobby)
+    console.log("[EVENT] " + message.username + " joined lobby: " +  lobby.name + " with " + lobby.users.length + " users: " + lobby.users.join(", "))
     client.send(JSON.stringify({
         event: event,
         status: "success",
@@ -174,8 +197,7 @@ function stun(client, message) {
             }
         }
     });
-    console.log("Users will be stunned:")
-    console.log(stunnedPrey);
+    console.log("[EVENT] Hunter used stun; affected prey: " + stunnedPrey.join(", "))
     
     stunnedPrey.forEach(stunned => {
         stunned.user.socket.send(JSON.stringify(new StunMsg(stunned.distance)))
@@ -212,15 +234,34 @@ function catchPlayer(client, message) {
     }
     
     var caughtPlayer = getUserInLobbyByName(lobby, message.caught)
-    if (user.isCaught == true) {
+    if (caughtPlayer == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (caughtPlayer.isCaught == true) {
         client.send(JSON.stringify(
             new ErrorMsg(event, "User is already caught")
         ))
         return;
     }
     console.log("[EVENT] " + caughtPlayer.name +  " got cought!")
-    caughtPlayer.socket.send({ event: event })
+    caughtPlayer.socket.send(JSON.stringify({ event: event }))
     caughtPlayer.isCaught = true;
+
+    var survivors = 0;
+    lobby.users.forEach(user => {
+        if(user.isHunter == false && user.isCaught == false) {
+            survivors++;
+        }
+    });
+    if(survivors == 0) {
+        console.log("[INFO] Winner by killing all : " + "Hunter");
+
+        var endMsg = new EndMsg(lobby.name, "Hunter")
+        lobby.sendToMembers(endMsg); 
+    }
 }
 
 function expose(client, message) {
@@ -255,14 +296,14 @@ function expose(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
-            dist = Math.max(dist, 200)
-            dist = scale(dist, 0, 200, 0, 30)
-            console.log("clamped: " + dist);
+            dist = dist / 100;
+            dist = Math.max(1, Math.min(dist, 5))
+            console.log("[INFO] Clamped stun duration: " + dist);
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
     });
 
-    console.log("[EVENT] Expose successfully started.")
+    console.log("[EVENT] Expose successfully started")
     console.log(exposedPrey);
 
     //expose all the prey for (distance in m) * 1 seconds
@@ -301,14 +342,11 @@ function cloak(client, message) {
     }
     console.log("[EVENT] Cloaked " + user.name)
     user.isCloaked = true;
-    delayUncloak(user)
-
-    // Server ticking
-    async function delayUncloak (usr) {
-        await timeout(cloakTime)
-        console.log("[EVENT] *Uncloaked* " + user.name)
-        usr.isCloaked = false;
-    }
+  
+    setTimeout(function() {
+        console.log("[EVENT] Uncloaked " + user.name)
+        user.isCloaked = false;
+    }, cloakTime);
 }
 
 wss.on('connection', function connection(ws) {
@@ -397,6 +435,10 @@ const interval = setInterval(function tick() {
             lobby.users.forEach(user => {
                 user.socket.send(JSON.stringify(new Tick(visibleUsers)))
             });
+
+            if(observer != null) {
+                observer.send(JSON.stringify(new Tick(lobby.users)))
+            }
         }
     });
   }, 1000 / tickrate);

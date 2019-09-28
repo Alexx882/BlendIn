@@ -1,4 +1,5 @@
 const StartMsg = require('./StartMsg.js')
+const EndMsg = require('./EndMsg.js')
 class Lobby {
 
     makeid(length) {
@@ -78,13 +79,42 @@ class Lobby {
         this._playing = true;
 
         var startTime = (new Date).getTime() + secondsToStart * 1000;
-        var hunter = this.users[0] //this.users[Math.floor(Math.random() * this.users.length)];
+        var hunter = this.users[Math.floor(Math.random() * this.users.length)];
         hunter.isHunter = true;
 
-        var gamelength = this.users.length * 5 * 60;
+        var gamelength = this.users.length * 5 * 60 + 60;
 
         var startMsg = new StartMsg(this.name, startTime, hunter.name, gamelength)
         this.sendToMembers(startMsg);
+
+        var that = this;
+        setTimeout(function() { 
+            console.log("[EVENT] ("+ that.name + ") Lobby is finished, time is up!");
+            // console.log(that.users)
+            // console.log(that)
+            var winner;
+            var survivors = 0;
+            that.users.forEach(user => {
+                if(user.isHunter == false && user.isCaught == false) {
+                    survivors++;
+                }
+            });
+            console.log("[INFO] Game over: "+ survivors + "/" + (that.users.length - 1) + " survived.");
+            
+            if (survivors > Math.floor((that.users.length - 1)/2)) {
+                winner = "Prey"
+            } else {
+                winner = "Hunter"
+            }
+            console.log("[INFO] Winner : " + winner);
+
+            var endMsg = new EndMsg(that.name, winner)
+            that.sendToMembers(endMsg); 
+
+            // that.users.forEach(user => {
+            //     user.socket.close();
+            // });
+        }, gamelength * 1000);
     }
 
     stop() {
