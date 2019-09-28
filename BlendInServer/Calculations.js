@@ -29,6 +29,11 @@ class Calculations {
     }
 
     static distance(loc1, loc2) {
+        if(loc1 == null || loc2 == null || loc1.lat == null || loc1.long == null || 
+            loc2.lat == null || loc2.long == null) {
+            console.error("invalid distance")
+            return Infinity;
+        } 
         return this.distanceLatLong(loc1.lat, loc1.long, loc2.lat, loc2.long)
     }
 } 

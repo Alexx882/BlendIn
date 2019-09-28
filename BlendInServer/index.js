@@ -7,6 +7,7 @@ const ErrorMsg = require('./ErrorMsg.js')
 const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
+const StunMsg = require('./StunMsg.js')
 
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -154,7 +155,8 @@ function stun(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
-            if (dist < 10) {
+            console.log(dist)
+            if (dist < 25) {
                 stunnedPrey.push({ user: prey, distance: dist })
             }
         }
@@ -296,7 +298,7 @@ wss.on('connection', function connection(ws) {
         try {
             try {
                 var message = JSON.parse(jsonmessage);
-                console.log('received: %s', message);
+                // console.log('received: %s', message);
             } catch (error) {
                 ws.send(JSON.stringify({ error: error }));
             }
@@ -368,7 +370,7 @@ wss.on('connection', function connection(ws) {
 const interval = setInterval(function tick() {
     lobbies.forEach(lobby => {
         if(lobby.playing) {
-            console.log("[%s] Lobby tick.", lobby.name)
+            // console.log("[%s] Lobby tick.", lobby.name)
             var visibleUsers = lobby.users.filter(function(user, index, arr){
                 return user.isCloaked == false && user.isCaught == false
             });

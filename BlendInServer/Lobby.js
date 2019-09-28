@@ -3,7 +3,7 @@ class Lobby {
 
     makeid(length) {
         var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var characters       = 'ACDEFGHIJKLMNOQRSTUVWXYZ';
         var charactersLength = characters.length;
         for ( var i = 0; i < length; i++ ) {
            result += characters.charAt(Math.floor(Math.random() * charactersLength));
