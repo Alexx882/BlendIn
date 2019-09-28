@@ -23,6 +23,7 @@ namespace BlendIn.Game
 
         public PreyGameView()
         {
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
 
             WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
