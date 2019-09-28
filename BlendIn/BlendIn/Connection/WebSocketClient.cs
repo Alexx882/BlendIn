@@ -14,6 +14,8 @@ namespace BlendIn.Connection
 {
     public class WebSocketClient
     {
+        public static string ip = "192.168.8.155";
+
         private ClientWebSocket client = new ClientWebSocket();
         private CancellationTokenSource cts = new CancellationTokenSource();
 
@@ -33,7 +35,7 @@ namespace BlendIn.Connection
         {
         }
 
-        public async Task ConnectToServerAsync(string ip = "192.168.8.155")
+        public async Task ConnectToServerAsync()
         {
             await client.ConnectAsync(new Uri($"ws://{ip}:8080"), cts.Token);
             Console.WriteLine($"Websocket state {client.State}");
