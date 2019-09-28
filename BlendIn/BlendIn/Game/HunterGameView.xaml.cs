@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BlendIn.Connection;
 using BlendIn.Connection.Messages;
+using BlendIn.QrCode;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
@@ -46,11 +47,10 @@ namespace BlendIn.Game
             ButtonExpose.IsEnabled = false;
         }
 
-        public void Catch_Clicked(object sender, EventArgs e)
+        public async void Catch_Clicked(object sender, EventArgs e)
         {
-            // todo barcode
-            var caught_user = "username";
-            WebSocketClient.Instance.SendMessageAsync(new HunterAction()
+            var caught_user = (await QrCodeHelper.ReadQrCode(this)).Text;
+            await WebSocketClient.Instance.SendMessageAsync(new HunterAction()
             {
                 @event = "catch", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName,
                 caught = caught_user

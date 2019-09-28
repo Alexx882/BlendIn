@@ -46,10 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="QrCode\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Game\HunterGameView.xaml.cs">
       <DependentUpon>HunterGameView.xaml</DependentUpon>
     </Compile>

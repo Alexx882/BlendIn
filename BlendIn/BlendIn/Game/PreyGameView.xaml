@@ -28,6 +28,20 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
+                <Image
+                    x:Name="ImageQrCode"
+                    IsVisible="False"
+                    Grid.RowSpan="5"
+                    Grid.ColumnSpan="4">
+                </Image>
+
+                <Label x:Name="LabelDebug"
+                        Grid.Row="7"
+                    Grid.ColumnSpan="4"
+                   Grid.Column="0"
+                        TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"/>
                <Label x:Name="oct_null"
                        Grid.Row="0"
                        Grid.Column="2"
@@ -123,6 +137,15 @@
                 <Label Grid.Row="8"
                         Grid.ColumnSpan="4"
                         x:Name="LabelDebug" />
+                        TextColor="White"></Button>
+                        BackgroundColor="Gray"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Approve Caught" 
+                        Clicked="Caught_Clicked"
+                        x:Name="ButtonApproveCaught"
+                        Grid.ColumnSpan="4"  
+                <Button Grid.Row="7"
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>
