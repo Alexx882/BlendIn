@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BlendIn.Views.ViewNewGame"
-             BackgroundColor="Black">
+             BackgroundImageSource="bg.png">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
             <Label x:Name="LabelLobby" Text="" FontSize="40" TextColor="White"/>
