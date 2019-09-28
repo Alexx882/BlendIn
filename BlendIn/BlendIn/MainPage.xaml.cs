@@ -64,16 +64,24 @@ namespace BlendIn
 
         private void Location_Test_Clicked(object sender, EventArgs e)
         {
-            Location boston = new Location(42.358056, -71.063611);
-            Location sanFrancisco = new Location(37.783333, -122.416667);
-            double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
+
+
+            Location a = new Location(46.933502, 13.872430);
+            Location b = new Location(46.933942, 13.872419);
+            Location c = new Location(46.933649, 13.871893);
+
+            //double miles = Location.CalculateDistance(boston, sanFrancisco, DistanceUnits.Miles);
             //LocationDebugLabel.Text = "DI: " + miles +" DS: " + Calculations.GetDistance(boston,sanFrancisco)+ " Octant: " + Calculations.GetOctantBetweenTwoPoints(boston, sanFrancisco)+ " B: "+Calculations.getFinalBearing(boston,sanFrancisco);
-            LocationDebugLabel.Text = "Distance "+ Calculations.GetDistance(boston, sanFrancisco) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(boston,sanFrancisco, _gameLogic.personalCompassDegrees);
-            SoundController sound = new SoundController();
+            LocationDebugLabel1.Text = "AB Distance "+ Calculations.GetDistance(a, b) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(a,b,180);
+            LocationDebugLabel2.Text = "BC Distance " + Calculations.GetDistance(b, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(b, c,180);
+            LocationDebugLabel3.Text = "CA Distance " + Calculations.GetDistance(a, c) + "m in Octant: " + Calculations.GetOctantBetweenTwoPoints(c, a, 180);
+
+
+            //SoundController sound = new SoundController();
             //sound.audio.Loop = true;
-            sound.audio.Play();
-            HunterGameView v = new HunterGameView();
-            Navigation.PushAsync(v);
+            //sound.audio.Play();
+            //HunterGameView v = new HunterGameView();
+            //Navigation.PushAsync(v);
         }
 
         private void JoinGame_Clicked(object sender, EventArgs e)
