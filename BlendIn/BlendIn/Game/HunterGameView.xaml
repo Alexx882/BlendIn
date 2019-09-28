@@ -7,7 +7,7 @@
              BackgroundColor="black"
              x:Class="BlendIn.Game.HunterGameView">
     <ContentPage.Content>
-        <StackLayout Padding="60"
+        <StackLayout Padding="20"
                      BackgroundColor="black"
                      VerticalOptions="CenterAndExpand" 
                      HorizontalOptions="CenterAndExpand" >
