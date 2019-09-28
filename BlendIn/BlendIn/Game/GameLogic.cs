@@ -29,6 +29,7 @@ namespace BlendIn.Game
         public string LobbyName { get; set; }
 
         private static GameLogic _instance;
+        public long GameLength { get; set; }
 
         public static GameLogic Instance
         {

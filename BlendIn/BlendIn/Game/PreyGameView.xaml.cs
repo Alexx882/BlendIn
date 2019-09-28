@@ -115,6 +115,8 @@ namespace BlendIn.Game
             while (true)
             {
                 GameLogic.Instance.SendLocation();
+                GameLogic.Instance.GameLength--;
+                Device.BeginInvokeOnMainThread(() => { TimeLeft.Text = GameLogic.Instance.GameLength + "s"; });
                 if (vanishCurrent > 0)
                 {
                     vanishCurrent--;
