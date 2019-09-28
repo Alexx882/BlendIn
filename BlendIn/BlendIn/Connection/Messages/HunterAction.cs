@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BlendIn.Connection.Messages
 {
-    public class HunterActions : BaseMessage
+    public class HunterAction : BaseMessage
     {
         public string lobby { get; set; }
         public string user { get; set; }

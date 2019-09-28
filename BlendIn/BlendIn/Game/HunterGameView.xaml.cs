@@ -27,24 +27,24 @@ namespace BlendIn.Game
             new Thread(() => HunterLoop()).Start();
         }
 
-        public void Stun_Clicked()
+        public void Stun_Clicked(object sender, EventArgs e)
         {
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
                 {@event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
             stunCurrent = stunCDValue;
-            //ButtonStun.IsEnabled = false;
+            ButtonStun.IsEnabled = false;
         }
 
 
-        public void Expose_Clicked()
+        public void Expose_Clicked(object sender, EventArgs e)
         {
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
                 {@event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName});
             exposeCurrent = exposeCDValue;
-            //ButtonExpose.IsEnabled = false;
+            ButtonExpose.IsEnabled = false;
         }
 
-        public void Catch_Clicked()
+        public void Catch_Clicked(object sender, EventArgs e)
         {
             // todo barcode
             var caught_user = "user";
@@ -66,7 +66,7 @@ namespace BlendIn.Game
                 }
                 else
                 {
-                    //ButtonExpose.IsEnabled = true;
+                    Device.BeginInvokeOnMainThread(() => { ButtonExpose.IsEnabled = true; });
                 }
 
                 if (stunCurrent > 0)
@@ -75,16 +75,18 @@ namespace BlendIn.Game
                 }
                 else
                 {
-                    //ButtonStun.IsEnabled = true;
+                    Device.BeginInvokeOnMainThread(() => { ButtonStun.IsEnabled = true; });
+
                 }
-                //Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
-                //Device.BeginInvokeOnMainThread(() => { oct_eins.Text = GetOctantString(1); });
-                //Device.BeginInvokeOnMainThread(() => { oct_zwei.Text = GetOctantString(2); });
-                //Device.BeginInvokeOnMainThread(() => { oct_drei.Text = GetOctantString(3); });
-                //Device.BeginInvokeOnMainThread(() => { oct_vier.Text = GetOctantString(4); });
-                //Device.BeginInvokeOnMainThread(() => { oct_fuenf.Text = GetOctantString(5); });
-                //Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = GetOctantString(6); });
-                //Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = GetOctantString(7); });
+
+                Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
+                Device.BeginInvokeOnMainThread(() => { oct_eins.Text = GetOctantString(1); });
+                Device.BeginInvokeOnMainThread(() => { oct_zwei.Text = GetOctantString(2); });
+                Device.BeginInvokeOnMainThread(() => { oct_drei.Text = GetOctantString(3); });
+                Device.BeginInvokeOnMainThread(() => { oct_vier.Text = GetOctantString(4); });
+                Device.BeginInvokeOnMainThread(() => { oct_fuenf.Text = GetOctantString(5); });
+                Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = GetOctantString(6); });
+                Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = GetOctantString(7); });
 
 
                 Thread.Sleep(1000);
