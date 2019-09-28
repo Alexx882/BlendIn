@@ -47,7 +47,7 @@ namespace BlendIn.Connection
                     await HandleIncomingMessages();
                 }
 
-                await client.CloseAsync(WebSocketCloseStatus.Empty, "", cts.Token);
+                await client.CloseAsync(WebSocketCloseStatus.NormalClosure, "", cts.Token);
             }, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
