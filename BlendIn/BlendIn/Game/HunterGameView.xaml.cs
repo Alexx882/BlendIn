@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlendIn.Connection;
 using BlendIn.Connection.Messages;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace BlendIn.Game
@@ -76,7 +77,6 @@ namespace BlendIn.Game
                 else
                 {
                     Device.BeginInvokeOnMainThread(() => { ButtonStun.IsEnabled = true; });
-
                 }
 
                 Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
@@ -88,9 +88,22 @@ namespace BlendIn.Game
                 Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = GetOctantString(6); });
                 Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = GetOctantString(7); });
 
+                PrintLocations();
 
                 Thread.Sleep(1000);
             }
+        }
+
+        private void PrintLocations()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                LabelDebug.Text = "";
+                GameLogic.Instance.Players
+                    .ForEach(p =>
+                        LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude}), ");
+                LabelDebug.TextColor = Color.AntiqueWhite;
+            });
         }
 
         private string GetOctantString(int octant)
