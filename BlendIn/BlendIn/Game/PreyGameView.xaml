@@ -162,7 +162,7 @@
                 <Button Grid.Row="7"
                         BackgroundColor="Gray"
                         HorizontalOptions="FillAndExpand"
-                        Text="Approve Caught"
+                        Text="Got Caught"
                         Clicked="Caught_Clicked"
                         x:Name="ButtonApproveCaught"
                         Grid.ColumnSpan="4"
