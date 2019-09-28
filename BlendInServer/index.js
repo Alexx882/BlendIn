@@ -15,6 +15,10 @@ const wss = new WebSocket.Server({ port: 8080 });
 var lobbies = [];
 var tickrate = .5;
 
+const scale = (num, in_min, in_max, out_min, out_max) => {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 function getLobbyByName(lobbyname) {
     lobbyname = lobbyname.toUpperCase();
     let lobby = null;
@@ -155,6 +159,7 @@ function stun(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
+            
             console.log(dist)
             if (dist < 25) {
                 stunnedPrey.push({ user: prey, distance: dist })
@@ -241,12 +246,15 @@ function expose(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
+            dist = Math.max(dist, 200)
+            dist = scale(dist, 0, 200, 0, 30)
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
     });
 
-    console.log("Expose successfully started.")
+    console.log("[EVENT] Expose successfully started.")
     console.log(exposedPrey);
+
     //expose all the prey for (distance in m) * 1 seconds
     exposedPrey.forEach(exposed => {
         exposed.user.socket.send(JSON.stringify(new ExposeMsg(exposed.duration)))
