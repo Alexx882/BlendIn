@@ -79,14 +79,14 @@ namespace BlendIn.Game
                     Device.BeginInvokeOnMainThread(() => { ButtonStun.IsEnabled = true; });
                 }
 
-                Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
-                Device.BeginInvokeOnMainThread(() => { oct_eins.Text = GetOctantString(1); });
-                Device.BeginInvokeOnMainThread(() => { oct_zwei.Text = GetOctantString(2); });
-                Device.BeginInvokeOnMainThread(() => { oct_drei.Text = GetOctantString(3); });
-                Device.BeginInvokeOnMainThread(() => { oct_vier.Text = GetOctantString(4); });
-                Device.BeginInvokeOnMainThread(() => { oct_fuenf.Text = GetOctantString(5); });
-                Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = GetOctantString(6); });
-                Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = GetOctantString(7); });
+                Device.BeginInvokeOnMainThread(() => { oct_null.Text = "0 "+ GetOctantString(7); });
+                Device.BeginInvokeOnMainThread(() => { oct_eins.Text = "1 "+GetOctantString(6); });
+                Device.BeginInvokeOnMainThread(() => { oct_zwei.Text = "2 " +GetOctantString(5); });
+                Device.BeginInvokeOnMainThread(() => { oct_drei.Text = "3 "+GetOctantString(4); });
+                Device.BeginInvokeOnMainThread(() => { oct_vier.Text = "4 "+GetOctantString(3); });
+                Device.BeginInvokeOnMainThread(() => { oct_fuenf.Text = "5 " + GetOctantString(2); });
+                Device.BeginInvokeOnMainThread(() => { oct_sechs.Text = "6 " + GetOctantString(1); });
+                Device.BeginInvokeOnMainThread(() => { oct_sieben.Text = "7 " + GetOctantString(0); });
 
                 PrintLocations();
 
@@ -103,6 +103,7 @@ namespace BlendIn.Game
                     .ForEach(p =>
                         LabelDebug.Text += $"({p.PlayerName}, {p.Location.Latitude}, {p.Location.Longitude}), ");
                 LabelDebug.TextColor = Color.AntiqueWhite;
+                LabelDebug.Text += " "+GameLogic.Instance.GetCompass();
             });
         }
 

@@ -77,6 +77,10 @@ namespace BlendIn.Game
             }
             return amountOfPlayers;
         }
+        public double GetCompass()
+        {
+            return this._personalCompassDegrees;
+        }
         
     }
 }
