@@ -233,7 +233,13 @@ function catchPlayer(client, message) {
     }
     
     var caughtPlayer = getUserInLobbyByName(lobby, message.caught)
-    if (user.isCaught == true) {
+    if (caughtPlayer == null) {
+        client.send(JSON.stringify(
+            new ErrorMsg(event, "User with this name does not exist in your lobby")
+        ))
+        return;
+    }
+    if (caughtPlayer.isCaught == true) {
         client.send(JSON.stringify(
             new ErrorMsg(event, "User is already caught")
         ))
@@ -242,6 +248,19 @@ function catchPlayer(client, message) {
     console.log("[EVENT] " + caughtPlayer.name +  " got cought!")
     caughtPlayer.socket.send(JSON.stringify({ event: event }))
     caughtPlayer.isCaught = true;
+
+    var survivors = 0;
+    lobby.users.forEach(user => {
+        if(user.isHunter == false && user.isCaught == false) {
+            survivors++;
+        }
+    });
+    if(survivors == 0) {
+        console.log("[INFO] Winner by killing all : " + "Hunter");
+
+        var endMsg = new EndMsg(lobby.name, "Hunter")
+        lobby.sendToMembers(endMsg); 
+    }
 }
 
 function expose(client, message) {
