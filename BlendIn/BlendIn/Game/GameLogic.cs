@@ -17,14 +17,16 @@ namespace BlendIn.Game
         /// Used for a lot of dirty stuff, eg. evaluating <see cref="Player.IsHunter"/>.
         /// </summary>
         public static string HunterName { get; set; }
+
         public List<Player> Players { get; set; }
         public Player Self { get; set; }
 
         private double _personalCompassDegrees;
         public bool SelfIsHunter => Self.IsHunter ?? false;
         public string SelfUserName => Self.PlayerName;
+        public int ActivePrey => Players.Count() - 1;
 
-        public string LobbyName { get; set; } 
+        public string LobbyName { get; set; }
 
         private static GameLogic _instance;
 
@@ -32,12 +34,12 @@ namespace BlendIn.Game
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                     _instance = new GameLogic();
                 return _instance;
             }
         }
-        
+
         private GameLogic()
         {
             WebSocketClient.Instance.RegisterForMessage<TickResponse>(HandleTick);
@@ -62,6 +64,7 @@ namespace BlendIn.Game
         public async void SendLocation()
         {
             var location = await Hardware.GetLocation();
+            GameLogic.Instance.Self.Location = location;
             await WebSocketClient.Instance.SendMessageAsync(new LocationMessage()
             {
                 @event = "location", lobby = LobbyName, username = SelfUserName, latitude = location?.Latitude,
@@ -74,11 +77,13 @@ namespace BlendIn.Game
             int amountOfPlayers = 0;
             foreach (Player player in Players.Where(p => p.PlayerName != SelfUserName))
             {
-                if(Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) == octant)
+                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) ==
+                    octant)
                 {
                     amountOfPlayers += 1;
                 }
             }
+
             return amountOfPlayers;
         }
 
@@ -87,11 +92,13 @@ namespace BlendIn.Game
             List<Player> playerList = new List<Player>();
             foreach (Player player in Players.Where(p => p.PlayerName != SelfUserName))
             {
-                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) == octant)
+                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) ==
+                    octant)
                 {
                     playerList.Add(player);
                 }
             }
+
             return playerList;
         }
 
@@ -100,17 +107,19 @@ namespace BlendIn.Game
             List<Player> playerList = new List<Player>();
             foreach (Player player in Players.Where(p => p.IsHunter ?? false))
             {
-                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) == octant)
+                if (Calculations.GetOctantBetweenTwoPoints(Self.Location, player.Location, _personalCompassDegrees) ==
+                    octant)
                 {
                     playerList.Add(player);
                 }
             }
+
             return playerList;
         }
+
         public double GetCompass()
         {
             return this._personalCompassDegrees;
         }
-        
     }
 }
