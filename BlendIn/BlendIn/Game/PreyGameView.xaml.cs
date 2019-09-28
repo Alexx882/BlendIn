@@ -28,8 +28,21 @@ namespace BlendIn.Game
             InitializeComponent();
 
             WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
+            WebSocketClient.Instance.RegisterForMessage<CaughtResponse>(HandleCaught);
 
             new Thread(() => PreyLoop()).Start();
+        }
+
+        private void HandleCaught(object obj)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Navigation.PopAsync(); // gameview
+                await Navigation.PopAsync(); // timerview
+                await Navigation.PopAsync(); // matchmaking
+
+                await Navigation.PushAsync(new GameLostView());
+            });
         }
 
         private void HandleHunterAction(object obj)
