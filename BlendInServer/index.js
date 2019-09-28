@@ -8,14 +8,30 @@ const Tick = require('./Tick.js')
 const Calculations = require('./Calculations.js')
 const ExposeMsg = require('./ExposeMsg.js')
 const StunMsg = require('./StunMsg.js')
+const express = require('express');
+const path = require('path');
+const { createServer } = require('http');
 
 const port = 8080;
-const wss = new WebSocket.Server({ port: port });
+
+// Observer debug server:
+
+const app = express();
+app.use(express.static(path.join(__dirname, '/public')));
+
+const server = createServer(app);
+server.listen(port, function() {
+    console.log('Listening on http://localhost:8080');
+});
+
+
 console.log(".-. .-\')               (\'-.       .-\') _  _ .-\') _                      .-\') _  \r\n\\  ( OO )            _(  OO)     ( OO ) )( (  OO) )                    ( OO ) ) \r\n ;-----.\\  ,--.     (,------.,--.\/ ,--,\'  \\     .\'_         ,-.-\') ,--.\/ ,--,\'  \r\n | .-.  |  |  |.-\')  |  .---\'|   \\ |  |\\  ,`\'--..._)        |  |OO)|   \\ |  |\\  \r\n | \'-\' \/_) |  | OO ) |  |    |    \\|  | ) |  |  \\  \'        |  |  \\|    \\|  | ) \r\n | .-. `.  |  |`-\' |(|  \'--. |  .     |\/  |  |   \' |        |  |(_\/|  .     |\/  \r\n | |  \\  |(|  \'---.\' |  .--\' |  |\\    |   |  |   \/ :       ,|  |_.\'|  |\\    |   \r\n | \'--\'  \/ |      |  |  `---.|  | \\   |   |  \'--\'  \/      (_|  |   |  | \\   |   \r\n `------\'  `------\'  `------\'`--\'  `--\'   `-------\'         `--\'   `--\'  `--\'   ")
-console.log("Blend In Server running on port " + port)
+
+const wss = new WebSocket.Server({ server });
 
 // TODO maybe redis?
 var lobbies = [];
+var observer = null;
 
 // IMPORTANT CONFIG:
 var tickrate = .5;
@@ -58,6 +74,12 @@ function getUserInLobbyByName(lobby, username) {
  */
 function login(client, message) {
     var event = "login"
+    if(message.observe == true) {
+        observer = client;
+        console.log("[DEBUG] Observer was set!!!");
+        
+        return;
+    }
     var lobby;
     if (message.lobby == null) {
         lobby = new Lobby();
@@ -218,7 +240,7 @@ function catchPlayer(client, message) {
         return;
     }
     console.log("[EVENT] " + caughtPlayer.name +  " got cought!")
-    caughtPlayer.socket.send({ event: event })
+    caughtPlayer.socket.send(JSON.stringify({ event: event }))
     caughtPlayer.isCaught = true;
 }
 
@@ -396,6 +418,10 @@ const interval = setInterval(function tick() {
             lobby.users.forEach(user => {
                 user.socket.send(JSON.stringify(new Tick(visibleUsers)))
             });
+
+            if(observer != null) {
+                observer.send(JSON.stringify(new Tick(lobby.users)))
+            }
         }
     });
   }, 1000 / tickrate);
