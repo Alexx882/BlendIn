@@ -1,21 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-              BackgroundImageSource="gamebg.png"
+             BackgroundImageSource="gamebg.png"
              x:Class="BlendIn.Game.PreyGameView">
     <ContentPage.Content>
-        <StackLayout Padding="20"                  
-                     VerticalOptions="CenterAndExpand" 
+        <StackLayout Padding="20"
+                     VerticalOptions="CenterAndExpand"
                      HorizontalOptions="CenterAndExpand">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" />
@@ -32,17 +33,9 @@
                     x:Name="ImageQrCode"
                     IsVisible="False"
                     Grid.RowSpan="5"
-                    Grid.ColumnSpan="4">
-                </Image>
+                    Grid.ColumnSpan="4" />
 
-                <Label x:Name="LabelDebug"
-                        Grid.Row="7"
-                    Grid.ColumnSpan="4"
-                   Grid.Column="0"
-                        TextColor="White"
-                   HorizontalOptions="Center"
-                   VerticalOptions="CenterAndExpand"/>
-               <Label x:Name="oct_null"
+                <Label x:Name="oct_null"
                        Grid.Row="0"
                        Grid.Column="2"
                        FontSize="30"
@@ -107,44 +100,49 @@
                        VerticalOptions="StartAndExpand" />
 
                 <Button Grid.Row="5"
-                    Grid.Column="0" 
-                    x:Name="ButtonDisrupt"
-                    Text="Disrupt" 
-                    Clicked="Disrupt_Clicked"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="Gray"
-                    TextColor="White"></Button>
+                        Grid.Column="0"
+                        x:Name="ButtonDisrupt"
+                        Text="Disrupt"
+                        Clicked="Disrupt_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
 
                 <Button Grid.Row="5"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    x:Name="ButtonVanish"
-                    Text="Vanish" 
-                    Clicked="Vanish_Clicked" 
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="Gray"
-                    TextColor="White"></Button>
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        x:Name="ButtonVanish"
+                        Text="Vanish"
+                        Clicked="Vanish_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
 
                 <Button Grid.Row="5"
-                    Grid.Column="3"  
-                    x:Name="ButtonRevive"
-                    Text="Revive" 
-                    Clicked="Revive_Clicked"
-                    HorizontalOptions="FillAndExpand"
-                    BackgroundColor="Gray"
-                    TextColor="White"></Button>
+                        Grid.Column="3"
+                        x:Name="ButtonRevive"
+                        Text="Revive"
+                        Clicked="Revive_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White" />
 
-                <Label Grid.Row="8"
-                        Grid.ColumnSpan="4"
-                        x:Name="LabelDebug" />
-                        TextColor="White"></Button>
+                <Label x:Name="LabelDebug"
+                       Grid.Row="7"
+                       Grid.ColumnSpan="4"
+                       Grid.Column="0"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand" />
+
+                <Button Grid.Row="7"
                         BackgroundColor="Gray"
                         HorizontalOptions="FillAndExpand"
-                        Text="Approve Caught" 
+                        Text="Approve Caught"
                         Clicked="Caught_Clicked"
                         x:Name="ButtonApproveCaught"
-                        Grid.ColumnSpan="4"  
-                <Button Grid.Row="7"
+                        Grid.ColumnSpan="4"
+                        TextColor="White" />
 
             </Grid>
         </StackLayout>
