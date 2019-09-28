@@ -15,7 +15,6 @@ namespace BlendIn.Game
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PreyGameView : ContentPage
     {
-
         public double vanishCDValue = 20;
         public double diruptCDValue = 30;
 
@@ -29,7 +28,6 @@ namespace BlendIn.Game
             WebSocketClient.Instance.RegisterForMessage<HunterActionResponse>(HandleHunterAction);
 
             new Thread(() => PreyLoop()).Start();
-
         }
 
         private void HandleHunterAction(object obj)
@@ -43,38 +41,38 @@ namespace BlendIn.Game
             {
                 new Thread(async () =>
                 {
-                    await Hardware.TryTurnOnFlashlight();
+                    Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
                     Thread.Sleep((response.duration ?? 0) * 1000);
-                    await Hardware.TryTurnOffFlashlight();
-                });
+                    Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
+                }).Start();
             }
         }
 
-        private void Stun()
+        private void Stun(int duration = 5)
         {
-            ToggleFlashlight();
-            PlaySound();
+            new Thread(() => ToggleFlashlight(duration)).Start();
+            new Thread(() => PlaySound(duration)).Start();
         }
 
-        private async Task ToggleFlashlight(int duration = 5)
+        private async Task ToggleFlashlight(int duration)
         {
             while (duration > 0)
             {
-                await Hardware.TryTurnOnFlashlight();
+                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOnFlashlight());
                 Thread.Sleep(500);
-                await Hardware.TryTurnOffFlashlight();
+                Device.BeginInvokeOnMainThread(async () => await Hardware.TryTurnOffFlashlight());
                 Thread.Sleep(500);
                 duration--;
             }
         }
 
-        private async Task PlaySound(int duration = 5)
+        private async Task PlaySound(int duration)
         {
             SoundController sc = new SoundController();
             sc.audio.Loop = true;
-            await Device.InvokeOnMainThreadAsync(() => sc.audio.Play());
-            Thread.Sleep(duration);
-            await Device.InvokeOnMainThreadAsync(() => sc.audio.Stop());
+            Device.BeginInvokeOnMainThread(() => sc.audio.Play());
+            Thread.Sleep(duration*1000);
+            Device.BeginInvokeOnMainThread(() => sc.audio.Stop());
         }
 
         private void PreyLoop()
@@ -98,7 +96,6 @@ namespace BlendIn.Game
                 else
                 {
                     //Device.BeginInvokeOnMainThread(() => { ButtonDisrupt.IsEnabled = true; });
-
                 }
 
                 //Device.BeginInvokeOnMainThread(() => { oct_null.Text = GetOctantString(0); });
@@ -132,7 +129,7 @@ namespace BlendIn.Game
         {
             /**
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            { @event = "stun", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            { @event = "stun", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
             stunCurrent = stunCDValue;
             ButtonStun.IsEnabled = false;
     */
@@ -143,7 +140,7 @@ namespace BlendIn.Game
         {
             /**
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
-            { @event = "expose", lobby = GameLogic.Instance.LobbyName, user = GameLogic.Instance.SelfUserName });
+            { @event = "expose", lobby = GameLogic.Instance.LobbyName, username = GameLogic.Instance.SelfUserName });
             exposeCurrent = exposeCDValue;
             ButtonExpose.IsEnabled = false;
     */
@@ -153,12 +150,12 @@ namespace BlendIn.Game
         {
             /**
             // todo barcode
-            var caught_user = "user";
+            var caught_user = "username";
             WebSocketClient.Instance.SendMessageAsync(new HunterAction()
             {
                 @event = "catch",
                 lobby = GameLogic.Instance.LobbyName,
-                user = GameLogic.Instance.SelfUserName,
+                username = GameLogic.Instance.SelfUserName,
                 caught = caught_user
             });
     */
