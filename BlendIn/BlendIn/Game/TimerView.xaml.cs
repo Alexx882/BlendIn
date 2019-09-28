@@ -20,7 +20,7 @@ namespace BlendIn.Game
 
         public TimerView(TimerResponse response)
         {
-            BackgroundImage = "bg.png";
+            BackgroundImage = "gamebg.png";
             InitializeComponent();
             _hunter_name = response.hunter_username;
             _game_start_time = response.starttime;
