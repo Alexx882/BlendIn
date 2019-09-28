@@ -37,7 +37,7 @@ namespace BlendIn.Game
                 remainingSeconds--;
             }
 
-            GameLogic.Instance.Self.IsHunter = GameLogic.Instance.SelfUserName == _hunter_name;
+            GameLogic.HunterName = _hunter_name;
             if (GameLogic.Instance.SelfIsHunter)
             {
                 Device.BeginInvokeOnMainThread(() => LabelInfo.Text = "You are the hunter");

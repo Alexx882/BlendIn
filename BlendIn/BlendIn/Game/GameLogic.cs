@@ -13,12 +13,16 @@ namespace BlendIn.Game
 {
     public class GameLogic
     {
+        /// <summary>
+        /// Used for a lot of dirty stuff, eg. evaluating <see cref="Player.IsHunter"/>.
+        /// </summary>
+        public static string HunterName { get; set; }
         public List<Player> Players { get; set; }
         public Player Self { get; set; }
 
         private double _personalCompassDegrees;
         public bool SelfIsHunter => Self.IsHunter ?? false;
-        public string SelfUserName => Self.PlayerName; 
+        public string SelfUserName => Self.PlayerName;
 
         public string LobbyName { get; set; } 
 
@@ -33,7 +37,7 @@ namespace BlendIn.Game
                 return _instance;
             }
         }
-
+        
         private GameLogic()
         {
             WebSocketClient.Instance.RegisterForMessage<TickResponse>(HandleTick);

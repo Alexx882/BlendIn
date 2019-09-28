@@ -42,7 +42,10 @@ namespace BlendIn.Game
             set => _location = value;
         }
 
-        public bool? IsHunter { get; set; }
+        public bool? IsHunter
+        {
+            get { return GameLogic.HunterName == this.PlayerName; }
+        }
 
         public Player()
         {
