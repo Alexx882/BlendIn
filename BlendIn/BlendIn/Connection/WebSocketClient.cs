@@ -14,7 +14,7 @@ namespace BlendIn.Connection
 {
     public class WebSocketClient
     {
-        public static string ip = "192.168.8.155";
+        public static string ip = "104.248.134.91";// "192.168.8.155";
 
         private ClientWebSocket client = new ClientWebSocket();
         private CancellationTokenSource cts = new CancellationTokenSource();
