@@ -173,10 +173,10 @@
                         TextColor="White" />
 
                 <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
                     x:Name="LabelStunned"
                     BackgroundColor="Red"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
                     IsVisible="False"
                     Grid.RowSpan="8"
                     Grid.ColumnSpan="4" />
