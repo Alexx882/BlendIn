@@ -82,7 +82,7 @@ class Lobby {
         var hunter = this.users[Math.floor(Math.random() * this.users.length)];
         hunter.isHunter = true;
 
-        var gamelength = this.users.length * 5 * 60;
+        var gamelength = this.users.length * 5 * 60 + 60;
 
         var startMsg = new StartMsg(this.name, startTime, hunter.name, gamelength)
         this.sendToMembers(startMsg);

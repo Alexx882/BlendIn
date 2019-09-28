@@ -296,8 +296,8 @@ function expose(client, message) {
     lobby.users.forEach(prey => {
         if(prey.isHunter == false) {
             var dist = Calculations.distance(user.location, prey.location);
-            dist = dist / 10;
-            dist = Math.max(5, Math.min(dist, 10))
+            dist = dist / 100;
+            dist = Math.max(1, Math.min(dist, 5))
             console.log("[INFO] Clamped stun duration: " + dist);
             exposedPrey.push({ user: prey, duration: Math.floor(dist) })
         }
