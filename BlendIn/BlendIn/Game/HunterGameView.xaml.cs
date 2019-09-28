@@ -95,7 +95,7 @@ namespace BlendIn.Game
 
         private string GetOctantString(int octant)
         {
-            string s = "";
+            string s = "-";
             for (int i = 0; i < GameLogic.Instance.GetAmountOfPlayersInOctant(octant); i++)
             {
                 s += "*";
